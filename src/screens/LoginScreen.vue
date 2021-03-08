@@ -129,7 +129,6 @@ export default {
                 });
                 setTimeout(function() {
                   _this.$router.push({ path: "/eta/home" });
-                  _this.$router.go(0);
                 }, 1000);
               } else {
                 _this.$message({

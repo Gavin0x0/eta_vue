@@ -26,6 +26,12 @@ export const login = (params) => post(`login`, params);
 
 // =====================================================================> 全局 API
 /**
+ * 检查登陆状态（GET）
+ * @returns
+ */
+export const checkState = () => get(`eta6/mine`);
+
+/**
  * 退出登录（POST）
  * @returns
  */

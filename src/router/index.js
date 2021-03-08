@@ -9,11 +9,13 @@ import QueryStu from "../views/QueryStu";
 import QueryTea from "../views/QueryTea";
 import Review from "../views/Review";
 import Award from "../views/Award";
-import ManageStu from "../views/ManageStu"
-import ManageTea from "../views/ManageTea"
-import ImportAward from "../views/ImportAward"
-import ImportTea from "../views/ImportTea"
-import ImportStu from "../views/ImportStu"
+import ManageStu from "../views/ManageStu";
+import ManageTea from "../views/ManageTea";
+import ImportAward from "../views/ImportAward";
+import ImportTea from "../views/ImportTea";
+import ImportStu from "../views/ImportStu";
+import { checkState } from "../api/index";
+import { Message } from "element-ui";
 
 Vue.use(VueRouter);
 
@@ -92,6 +94,30 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+// 全局前置守卫
+router.beforeEach((to, from, next) => {
+  if (to.path !== "/") {
+    let ifLogin = false;
+    checkState()
+      .then((res) => {
+        console.log("登陆状态检测请求成功", res);
+        ifLogin = true;
+      })
+      .catch((err) => {
+        console.log("登陆状态检测请求失败", err);
+      })
+      .finally(() => {
+        if (!ifLogin) {
+          router.push({ name: "LoginScreen" });
+          Message.error({
+            message: "未登陆或登陆信息已过期，请重新登陆",
+          });
+        }
+      });
+  }
+  next();
 });
 
 export default router;
