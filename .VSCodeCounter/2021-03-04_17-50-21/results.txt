@@ -1,0 +1,32 @@
+Date : 2021-03-04 17:50:21
+Directory : /Users/levi/Projects/eta_vue/src/views
+Total : 8 files,  1569 codes, 66 comments, 40 blanks, all 1675 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Vue.js   |          8 |      1,569 |         66 |         40 |      1,675 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                   |          8 |      1,569 |         66 |         40 |      1,675 |
++-----------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                            | language | code       | comment    | blank      | total      |
++-----------------------------------------------------+----------+------------+------------+------------+------------+
+| /Users/levi/Projects/eta_vue/src/views/About.vue    | Vue.js   |          5 |          0 |          0 |          5 |
+| /Users/levi/Projects/eta_vue/src/views/Home.vue     | Vue.js   |         71 |          0 |          7 |         78 |
+| /Users/levi/Projects/eta_vue/src/views/Mine.vue     | Vue.js   |        141 |          4 |          5 |        150 |
+| /Users/levi/Projects/eta_vue/src/views/Password.vue | Vue.js   |        127 |          1 |          4 |        132 |
+| /Users/levi/Projects/eta_vue/src/views/QueryStu.vue | Vue.js   |        403 |         20 |          6 |        429 |
+| /Users/levi/Projects/eta_vue/src/views/QueryTea.vue | Vue.js   |        315 |         19 |          7 |        341 |
+| /Users/levi/Projects/eta_vue/src/views/Review.vue   | Vue.js   |        365 |         15 |          4 |        384 |
+| /Users/levi/Projects/eta_vue/src/views/Upload.vue   | Vue.js   |        142 |          7 |          7 |        156 |
+| Total                                               |          |      1,569 |         66 |         40 |      1,675 |
++-----------------------------------------------------+----------+------------+------------+------------+------------+

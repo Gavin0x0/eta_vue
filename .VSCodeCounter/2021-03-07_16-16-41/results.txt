@@ -1,0 +1,63 @@
+Date : 2021-03-07 16:16:41
+Directory : /Users/levi/Projects/eta_vue/src
+Total : 29 files,  4662 codes, 715 comments, 190 blanks, all 5567 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| Vue.js     |         21 |      4,249 |        196 |         92 |      4,537 |
+| JavaScript |          8 |        413 |        519 |         98 |      1,030 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                          | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                             |         29 |      4,662 |        715 |        190 |      5,567 |
+| api                                                           |          2 |        233 |        500 |         74 |        807 |
+| components                                                    |          7 |        854 |         45 |         35 |        934 |
+| plugins                                                       |          2 |         44 |         12 |         12 |         68 |
+| router                                                        |          1 |         74 |          4 |          5 |         83 |
+| screens                                                       |          2 |        468 |         26 |         13 |        507 |
+| store                                                         |          1 |         50 |          3 |          3 |         56 |
+| test                                                          |          1 |        256 |         14 |          1 |        271 |
+| tools                                                         |          1 |          0 |          0 |          1 |          1 |
+| views                                                         |         10 |      2,644 |        111 |         39 |      2,794 |
++---------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                      | language   | code       | comment    | blank      | total      |
++---------------------------------------------------------------+------------+------------+------------+------------+------------+
+| /Users/levi/Projects/eta_vue/src/App.vue                      | Vue.js     |         27 |          0 |          4 |         31 |
+| /Users/levi/Projects/eta_vue/src/api/http.js                  | JavaScript |        153 |         58 |         19 |        230 |
+| /Users/levi/Projects/eta_vue/src/api/index.js                 | JavaScript |         80 |        442 |         55 |        577 |
+| /Users/levi/Projects/eta_vue/src/components/AwardShow.vue     | Vue.js     |        146 |          3 |          8 |        157 |
+| /Users/levi/Projects/eta_vue/src/components/HelloWorld.vue    | Vue.js     |         57 |          0 |          3 |         60 |
+| /Users/levi/Projects/eta_vue/src/components/Inform.vue        | Vue.js     |        196 |          7 |          6 |        209 |
+| /Users/levi/Projects/eta_vue/src/components/NumberCounter.vue | Vue.js     |         65 |          0 |          5 |         70 |
+| /Users/levi/Projects/eta_vue/src/components/StuDetail.vue     | Vue.js     |         88 |          9 |          4 |        101 |
+| /Users/levi/Projects/eta_vue/src/components/TeaDetail.vue     | Vue.js     |         87 |          9 |          4 |        100 |
+| /Users/levi/Projects/eta_vue/src/components/UploadForm.vue    | Vue.js     |        215 |         17 |          5 |        237 |
+| /Users/levi/Projects/eta_vue/src/main.js                      | JavaScript |         12 |          0 |          3 |         15 |
+| /Users/levi/Projects/eta_vue/src/plugins/axios.js             | JavaScript |         40 |         12 |         10 |         62 |
+| /Users/levi/Projects/eta_vue/src/plugins/element.js           | JavaScript |          4 |          0 |          2 |          6 |
+| /Users/levi/Projects/eta_vue/src/router/index.js              | JavaScript |         74 |          4 |          5 |         83 |
+| /Users/levi/Projects/eta_vue/src/screens/LoginScreen.vue      | Vue.js     |        204 |         15 |          8 |        227 |
+| /Users/levi/Projects/eta_vue/src/screens/MainScreen.vue       | Vue.js     |        264 |         11 |          5 |        280 |
+| /Users/levi/Projects/eta_vue/src/store/index.js               | JavaScript |         50 |          3 |          3 |         56 |
+| /Users/levi/Projects/eta_vue/src/test/LoginScreen.vue         | Vue.js     |        256 |         14 |          1 |        271 |
+| /Users/levi/Projects/eta_vue/src/tools/tool.js                | JavaScript |          0 |          0 |          1 |          1 |
+| /Users/levi/Projects/eta_vue/src/views/Award.vue              | Vue.js     |        247 |         12 |          4 |        263 |
+| /Users/levi/Projects/eta_vue/src/views/Home.vue               | Vue.js     |         32 |          0 |          3 |         35 |
+| /Users/levi/Projects/eta_vue/src/views/ManageStu.vue          | Vue.js     |        396 |         16 |          3 |        415 |
+| /Users/levi/Projects/eta_vue/src/views/ManageTea.vue          | Vue.js     |        396 |         16 |          3 |        415 |
+| /Users/levi/Projects/eta_vue/src/views/Mine.vue               | Vue.js     |        141 |          4 |          5 |        150 |
+| /Users/levi/Projects/eta_vue/src/views/Password.vue           | Vue.js     |        127 |          1 |          4 |        132 |
+| /Users/levi/Projects/eta_vue/src/views/QueryStu.vue           | Vue.js     |        465 |         21 |          3 |        489 |
+| /Users/levi/Projects/eta_vue/src/views/QueryTea.vue           | Vue.js     |        333 |         19 |          4 |        356 |
+| /Users/levi/Projects/eta_vue/src/views/Review.vue             | Vue.js     |        365 |         15 |          4 |        384 |
+| /Users/levi/Projects/eta_vue/src/views/Upload.vue             | Vue.js     |        142 |          7 |          6 |        155 |
+| Total                                                         |            |      4,662 |        715 |        190 |      5,567 |
++---------------------------------------------------------------+------------+------------+------------+------------+------------+
