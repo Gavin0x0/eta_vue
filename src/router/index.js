@@ -19,6 +19,8 @@ import { Message } from "element-ui";
 
 Vue.use(VueRouter);
 
+// TODO 正式部署时全部改为懒加载模式可以加快加载速度
+
 const routes = [
   {
     path: "/",
