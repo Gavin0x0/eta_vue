@@ -1,22 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
 import LoginScreen from "../test/LoginScreen.vue";
 import MainScreen from "../screens/MainScreen.vue";
-import Upload from "../views/Upload";
-import Mine from "../views/Mine";
-import QueryStu from "../views/QueryStu";
-import QueryTea from "../views/QueryTea";
-import Review from "../views/Review";
-import Award from "../views/Award";
-import ManageStu from "../views/ManageStu";
-import ManageTea from "../views/ManageTea";
-import ImportAward from "../views/ImportAward";
-import ImportTea from "../views/ImportTea";
-import ImportStu from "../views/ImportStu";
 import { checkState } from "../api/index";
 import { Message } from "element-ui";
-import  store  from "../store/index";
 
 
 
@@ -39,15 +26,15 @@ const routes = [
         // 当 /eta/home 匹配成功，
         // Home 会被渲染在 MainScreen 的 <router-view> 中
         path: "home",
-        component: Home,
+        component: () => import("../views/Home"),
       },
       {
         path: "upload",
-        component: Upload,
+        component: () => import("../views/Upload"),
       },
       {
         path: "mine",
-        component: Mine,
+        component: () => import("../views/Mine"),
       },
       {
         path: "password",
@@ -57,39 +44,39 @@ const routes = [
       },
       {
         path: "query-stu",
-        component: QueryStu,
+        component: () => import("../views/QueryStu"),
       },
       {
         path: "query-tea",
-        component: QueryTea,
+        component: () => import("../views/QueryTea"),
       },
       {
         path: "review",
-        component: Review,
+        component: () => import("../views/Review"),
       },
       {
         path: "award",
-        component: Award,
+        component: () => import("../views/Award"),
       },
       {
         path: "manage-stu",
-        component: ManageStu,
+        component: () => import("../views/ManageStu"),
       },
       {
         path: "manage-tea",
-        component: ManageTea,
+        component: () => import("../views/ManageTea"),
       },
       {
         path: "import-award",
-        component: ImportAward,
+        component: () => import("../views/ImportAward"),
       },
       {
         path: "import-stu",
-        component: ImportStu,
+        component: () => import("../views/ImportStu"),
       },
       {
         path: "import-tea",
-        component: ImportTea,
+        component: () => import("../views/ImportTea"),
       },
     ],
   },

@@ -35,6 +35,7 @@ axios.interceptors.response.use(
   },
   // 服务器状态码不是2开头的的情况
   (error) => {
+    console.log("请求error：",error)
     if (error.response.status) {
       switch (error.response.status) {
         // 401: 未登录
