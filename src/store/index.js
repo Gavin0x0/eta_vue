@@ -3,8 +3,9 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store =  new Vuex.Store({
   state: {
+    ifLogin: false, //是否已登陆
     name: '',//用户姓名  
     username: '',//用户编号  
     role: '',//用户角色  
@@ -34,8 +35,14 @@ export default new Vuex.Store({
         state.l_class = info.l_class
       }
     },
+    //设置登陆状态「未启用」
+    setLoginState: (state, LoginState) => {
+      console.log('当前登陆状态设为：',LoginState)
+      state.ifLogin = LoginState
+    },
   },
   getters: {
+    ifLogin: state => state.ifLogin,//是否已登陆
     name: state => state.name,
     username: state => state.username,//用户编号  
     role: state => state.role,//用户角色  
@@ -49,7 +56,10 @@ export default new Vuex.Store({
     totalItemNum: state => state.totalItemNum, //总奖项数
   },
   actions: {
+    
   },
   modules: {
   }
 })
+
+export default store

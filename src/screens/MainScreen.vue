@@ -300,6 +300,8 @@ export default {
               message: res.msg,
               type: "success",
             });
+            //设置登陆状态
+            // _this.$store.commit("setLoginState", false);
           } else {
             _this.$message({
               message: res.msg,

@@ -16,6 +16,9 @@ import ImportTea from "../views/ImportTea";
 import ImportStu from "../views/ImportStu";
 import { checkState } from "../api/index";
 import { Message } from "element-ui";
+import  store  from "../store/index";
+
+
 
 Vue.use(VueRouter);
 
@@ -101,7 +104,9 @@ const router = new VueRouter({
 // 全局前置守卫
 router.beforeEach((to, from, next) => {
   if (to.path !== "/") {
-    let ifLogin = false;
+    // console.log("登陆状态",store.state.ifLogin)
+    // next();
+    let ifLogin = false
     checkState()
       .then((res) => {
         console.log("登陆状态检测请求成功", res);
@@ -116,10 +121,13 @@ router.beforeEach((to, from, next) => {
           Message.error({
             message: "未登陆或登陆信息已过期，请重新登陆",
           });
+        }else{
+          next()
         }
       });
-  }
+  }else{
   next();
+  }
 });
 
 export default router;

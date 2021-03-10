@@ -45,9 +45,7 @@
                   >登陆</el-button
                 >
                 <el-button @click="resetForm('loginForm')">重置</el-button>
-                <el-button  @click="gono"
-                  >免登陆进入「开发用」</el-button
-                >
+                
               </el-form-item>
             </el-form>
           </el-main>
@@ -127,6 +125,8 @@ export default {
                   message: res.msg,
                   type: "success",
                 });
+                //设置登陆状态
+                this.$store.commit("setLoginState", true);
                 setTimeout(function() {
                   _this.$router.push({ path: "/eta/home" });
                 }, 1000);
@@ -169,10 +169,7 @@ export default {
         });
     },
 
-    //免登陆进入「开发用」
-    gono(){
-      this.$router.push({ path: "/eta/home" });
-    }
+    
   },
 };
 </script>

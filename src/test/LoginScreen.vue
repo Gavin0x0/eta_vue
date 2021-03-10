@@ -142,9 +142,10 @@ export default {
                   message: res.msg,
                   type: "success",
                 });
+                //设置登陆状态
+                //_this.$store.commit("setLoginState", true);
                 setTimeout(function() {
                   _this.$router.push({ path: "/eta/home" });
-                  _this.$router.go(0);
                 }, 1000);
               } else {
                 _this.$message({
