@@ -108,8 +108,8 @@ export default {
       params.append("page", this.currentPage);
       getInformList(params)
         .then((res) => {
-          console.log("-----------获取公告列表---------------");
-          console.log(res.data);
+          //closeDebug console.log("-----------获取公告列表---------------");
+          //closeDebug console.log(res.data);
           (_this.tableData = res.data), (_this.dataCount = res.count);
           let tempList = [];
           for (let i in res.data) {
@@ -134,7 +134,7 @@ export default {
       params.append("content", this.informContent);
       addInform(params)
         .then((res) => {
-          console.log("-----------添加公告项---------------");
+          //closeDebug console.log("-----------添加公告项---------------");
           if (res.code === 0) {
             _this.$message({
               message: res.msg,
@@ -154,13 +154,13 @@ export default {
     },
     //处理删除展示项
     handleDel(index, row) {
-      console.log("点击删除", index, row);
+      //closeDebug console.log("点击删除", index, row);
       let params = new URLSearchParams();
       params.append("id", row.id);
       let _this = this;
       delInform(params)
         .then((res) => {
-          console.log("-----------删除公告项---------------");
+          //closeDebug console.log("-----------删除公告项---------------");
           if (res.code === 0) {
             _this.$message({
               message: res.msg,
@@ -178,7 +178,7 @@ export default {
     },
     //处理公告项展示切换
     handleChange(val) {
-      console.log("展开了公告", val);
+      //closeDebug console.log("展开了公告", val);
     },
   },
 };

@@ -219,7 +219,7 @@ export default {
     this.initQueryList();
     this.onQuery();
     if (document.documentElement.clientWidth < 720) {
-      console.log("触发移动端布局");
+      //closeDebug console.log("触发移动端布局");
       this.paginationLayout = "prev, pager,next, ->, total";
       this.ifSmall = true
       this.Columns=[
@@ -240,9 +240,9 @@ export default {
     initQueryList() {
       initReview()
         .then((res) => {
-          console.log("-----------初始化查询参数---------------");
+          //closeDebug console.log("-----------初始化查询参数---------------");
           let obj = JSON.parse(res.msg);
-          console.log(obj);
+          //closeDebug console.log(obj);
           this.gradeList = obj.grade;
           this.majorList = obj.major;
           this.rankList = obj.rank;
@@ -252,22 +252,14 @@ export default {
     //更新可供筛选的班级列表
     QueryClass() {
       let _this = this;
-      console.log(
-        "选中的筛选值",
-        "年级：",
-        this.form2Query.gradeId,
-        "专业",
-        this.form2Query.majorId,
-        "班级",
-        this.form2Query.classId
-      );
+      //closeDebug console.log("选中的筛选值","年级：",this.form2Query.gradeId,"专业",this.form2Query.majorId,"班级",this.form2Query.classId);
       let params = new URLSearchParams();
       params.append("gradeId", this.form2Query.gradeId);
       params.append("majorId", this.form2Query.majorId);
       getClassList(params)
         .then((res) => {
-          console.log("-----------获取班级列表---------------");
-          console.log(res);
+          //closeDebug console.log("-----------获取班级列表---------------");
+          //closeDebug console.log(res);
           _this.classList = res;
         })
         .catch((failResponse) => {});
@@ -279,26 +271,26 @@ export default {
     //处理每页显示数据量变化
     handleSizeChange(val) {
       this.pageSize = val;
-      console.log(`每页 ${val} 条`);
+      //closeDebug console.log(`每页 ${val} 条`);
       this.onQuery();
     },
     //处理跳页
     handleCurrentChange(val) {
       this.currentPage = val;
-      console.log(`当前页: ${val}`);
+      //closeDebug console.log(`当前页: ${val}`);
       this.onQuery();
     },
     //处理查看详情
     handleShow(index, row) {
-      console.log("点击查看", index, row);
+      //closeDebug console.log("点击查看", index, row);
       let params = new URLSearchParams();
       params.append("id", row.id);
       this.reviewId = row.id;
       getStuDetail(params)
         .then((res) => {
-          console.log("-----------获取个人奖项详情---------------");
+          //closeDebug console.log("-----------获取个人奖项详情---------------");
           let obj = JSON.parse(res.msg);
-          console.log("个人奖项详情", obj);
+          //closeDebug console.log("个人奖项详情", obj);
           this.detailData = obj;
         })
         .catch((failResponse) => {});
@@ -306,13 +298,13 @@ export default {
     },
     //处理通过奖项
     handlePass() {
-      console.log("点击通过");
+      //closeDebug console.log("点击通过");
       let params = new URLSearchParams();
       params.append("id", this.reviewId);
       let _this = this;
       passAward(params)
         .then((res) => {
-          console.log("-----------通过奖项---------------");
+          //closeDebug console.log("-----------通过奖项---------------");
           if (res.code === 0) {
             _this.$message({
               message: res.msg,
@@ -331,13 +323,13 @@ export default {
     },
     //处理驳回奖项
     handleNotPass() {
-      console.log("点击驳回");
+      //closeDebug console.log("点击驳回");
       let params = new URLSearchParams();
       params.append("id", this.reviewId);
       let _this = this;
       notPassAward(params)
         .then((res) => {
-          console.log("-----------驳回奖项---------------");
+          //closeDebug console.log("-----------驳回奖项---------------");
           if (res.code === 0) {
             _this.$message({
               message: res.msg,
@@ -361,7 +353,7 @@ export default {
     },
     //处理数据筛选
     onQuery() {
-      console.log("submit:", this.form2Query);
+      //closeDebug console.log("submit:", this.form2Query);
       //参数绑定「分页大小、页码以及筛选参数」
       let params = new URLSearchParams();
       params.append("limit", this.pageSize);
@@ -377,8 +369,8 @@ export default {
       params.append("field", this.orderField); //奖项名
       getReviewAwardList(params)
         .then((res) => {
-          console.log("-----------获取筛选后的表格数据---------------");
-          console.log(res.data);
+          //closeDebug console.log("-----------获取筛选后的表格数据---------------");
+          //closeDebug console.log(res.data);
           this.tableData = res.data;
           this.dataCount = res.count;
         })
@@ -386,7 +378,7 @@ export default {
     },
     //处理排序后重新获取数据
     onSortChange(res) {
-      console.log("触发排序:", res);
+      //closeDebug console.log("触发排序:", res);
       if (res.order) {
         this.orderMode = res.order === "descending" ? "desc" : "asc";
         this.orderField = res.prop;
@@ -394,7 +386,7 @@ export default {
         this.orderMode = "";
         this.orderField = "";
       }
-      console.log(this.orderMode, this.orderField);
+      //closeDebug console.log(this.orderMode, this.orderField);
       this.onQuery();
     },
   },

@@ -43,8 +43,8 @@ export default {
     handleDownload() {
       getTeaTemplate()
         .then((res) => {
-          console.log("-----------下载教师模板---------------");
-          console.log(res);
+          //closeDebug console.log("-----------下载教师模板---------------");
+          //closeDebug console.log(res);
           const blob = new Blob([res.data]);
           var downloadElement = document.createElement("a");
           var href = window.URL.createObjectURL(blob);
@@ -60,15 +60,15 @@ export default {
     // 文件上传
     uploadFile(params) {
         let _this = this
-      console.log("uploadFile", params);
+      //closeDebug console.log("uploadFile", params);
       const _file = params.file;
       // 通过 FormData 对象上传文件
       var formData = new FormData();
       formData.append("file", _file);
       uploadTeaTemplate(formData)
         .then((res) => {
-          console.log("-----------模板上传---------------");
-          console.log("服务器返回值：", res);
+          //closeDebug console.log("-----------模板上传---------------");
+          //closeDebug console.log("服务器返回值：", res);
           if (res.code === 0) {
             _this.$message({
               message: res.msg,

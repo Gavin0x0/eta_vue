@@ -68,14 +68,14 @@ export default {
 
   methods: {
     randerImage(path) {
-      console.log("ImgPath", path);
+      //closeDebug console.log("ImgPath", path);
       getImage(path)
         .then((res) => {
-          console.log(res);
+          //closeDebug console.log(res);
           _this.$refs.code.setAttribute("src", window.URL.createObjectURL(res));
         })
         .catch((err) => {
-          console.log(err);
+          //closeDebug console.log(err);
         });
     },
   },

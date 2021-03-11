@@ -248,7 +248,7 @@ export default {
     this.initQueryList();
     this.onQuery();
     if (document.documentElement.clientWidth < 720) {
-      console.log("触发移动端布局");
+      //closeDebug console.log("触发移动端布局");
       this.ifSmall = true
       this.paginationLayout = "prev, pager,next, ->, total";
       this.Columns=[
@@ -265,9 +265,9 @@ export default {
     initQueryList() {
       initManageTea()
         .then((res) => {
-          console.log("-----------初始化查询参数---------------");
+          //closeDebug console.log("-----------初始化查询参数---------------");
           let obj = JSON.parse(res.msg);
-          console.log(obj);
+          //closeDebug console.log(obj);
           this.gradeList = obj.grade;
           this.majorList = obj.major;
           this.roleList = obj.role;
@@ -277,20 +277,14 @@ export default {
     //更新可供筛选的班级列表
     QueryClass() {
       let _this = this;
-      console.log(
-        "选中的筛选值",
-        "年级：",
-        this.form2Search.gradeId,
-        "专业",
-        this.form2Search.majorId
-      );
+      //closeDebug console.log("选中的筛选值","年级：",this.form2Search.gradeId,"专业",this.form2Search.majorId);
       let params = new URLSearchParams();
       params.append("gradeId", this.form2Search.gradeId);
       params.append("majorId", this.form2Search.majorId);
       getClassList(params)
         .then((res) => {
-          console.log("-----------获取班级列表---------------");
-          console.log(res);
+          //closeDebug console.log("-----------获取班级列表---------------");
+          //closeDebug console.log(res);
           _this.classList = res;
         })
         .catch((failResponse) => {});
@@ -299,7 +293,7 @@ export default {
     //处理多选框变化
     handleSelectionChange(val) {
       this.multipleSelection = val;
-      console.log("多选框：", val);
+      //closeDebug console.log("多选框：", val);
     },
     //处理重置用户密码
     handleResetPass() {
@@ -310,7 +304,7 @@ export default {
       let _this = this;
       resetTeaPass(params)
         .then((res) => {
-          console.log("-----------重置用户密码---------------");
+          //closeDebug console.log("-----------重置用户密码---------------");
           if (res.code === 0) {
             _this.$message({
               message: res.msg,
@@ -335,7 +329,7 @@ export default {
       let _this = this;
       delTea(params)
         .then((res) => {
-          console.log("-----------删除用户---------------");
+          //closeDebug console.log("-----------删除用户---------------");
           if (res.code === 0) {
             _this.$message({
               message: res.msg,
@@ -358,32 +352,32 @@ export default {
     //处理每页显示数据量变化
     handleSizeChange(val) {
       this.pageSize = val;
-      console.log(`每页 ${val} 条`);
+      //closeDebug console.log(`每页 ${val} 条`);
       this.onQuery();
     },
     //处理跳页
     handleCurrentChange(val) {
       this.currentPage = val;
-      console.log(`当前页: ${val}`);
+      //closeDebug console.log(`当前页: ${val}`);
       this.onQuery();
     },
     //处理修改信息
     select2Change(index, row) {
-      console.log("点击编辑", index, row);
+      //closeDebug console.log("点击编辑", index, row);
       this.selectTea = row;
       this.oldRoleId = row.roleId;
       this.newRoleId = row.roleId;
       this.ifShowUpdateDialog = true;
     },
     handleChange(val) {
-      console.log("onchange:", val);
+      //closeDebug console.log("onchange:", val);
       let params = new URLSearchParams();
       params.append("username", this.selectTea.username);
       params.append("newName", this.selectTea.name);
       let _this = this;
       updateTea(params)
         .then((res) => {
-          console.log("-----------更新教师信息---------------");
+          //closeDebug console.log("-----------更新教师信息---------------");
           if (res.code === 0) {
             _this.$message({
               message: res.msg,
@@ -413,7 +407,7 @@ export default {
       let _this = this;
       setRole(params)
         .then((res) => {
-          console.log("-----------设置教师角色---------------");
+          //closeDebug console.log("-----------设置教师角色---------------");
           if (res.code === 0) {
             _this.$message({
               message: res.msg,
@@ -435,7 +429,7 @@ export default {
     },
     //处理数据筛选
     onQuery() {
-      console.log("submit:", this.form2Query);
+      //closeDebug console.log("submit:", this.form2Query);
       //参数绑定「分页大小、页码以及筛选参数」
       let params = new URLSearchParams();
       params.append("limit", this.pageSize);
@@ -446,8 +440,8 @@ export default {
       params.append("field", this.orderField); //排序字段
       getTeaList(params)
         .then((res) => {
-          console.log("-----------获取筛选后的表格数据---------------");
-          console.log(res.data);
+          //closeDebug console.log("-----------获取筛选后的表格数据---------------");
+          //closeDebug console.log(res.data);
           this.tableData = res.data;
           this.dataCount = res.count;
         })
@@ -455,7 +449,7 @@ export default {
     },
     //处理排序后重新获取数据
     onSortChange(res) {
-      console.log("触发排序:", res);
+      //closeDebug console.log("触发排序:", res);
       if (res.order) {
         this.orderMode = res.order === "descending" ? "desc" : "asc";
         this.orderField = res.prop;
@@ -463,7 +457,7 @@ export default {
         this.orderMode = "";
         this.orderField = "";
       }
-      console.log(this.orderMode, this.orderField);
+      //closeDebug console.log(this.orderMode, this.orderField);
       this.onQuery();
     },
   },

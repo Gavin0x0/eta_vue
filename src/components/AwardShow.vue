@@ -82,8 +82,8 @@ export default {
       params.append("page", this.currentPage);
       getAwardShowList(params)
         .then((res) => {
-          console.log("-----------获取展示的奖项列表---------------");
-          console.log(res.data);
+          //closeDebug console.log("-----------获取展示的奖项列表---------------");
+          //closeDebug console.log(res.data);
           (_this.tableData = res.data), (_this.dataCount = res.count);
           let tempList = [];
           for (let i in res.data) {
@@ -99,13 +99,13 @@ export default {
     },
     //处理删除展示项
     handleDel(index, row) {
-      console.log("点击删除", index, row);
+      //closeDebug console.log("点击删除", index, row);
       let params = new URLSearchParams();
       params.append("id", row.id);
       let _this = this;
       delAwardShow(params)
         .then((res) => {
-          console.log("-----------删除展示项---------------");
+          //closeDebug console.log("-----------删除展示项---------------");
           if (res.code === 0) {
             _this.$message({
               message: res.msg,

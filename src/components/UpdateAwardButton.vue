@@ -68,7 +68,7 @@ export default {
     // 文件上传
     updateAwardImage() {
       let _this = this;
-      console.log("updateAwardImage");
+      //closeDebug console.log("updateAwardImage");
       // 通过 FormData 对象上传文件
       var formData = new FormData();
       formData.append("id", this.id);
@@ -76,12 +76,12 @@ export default {
       let filesList = this.awardPicList;
       for (let i = 0; i < filesList.length; i++) {
         formData.append("file", filesList[i].raw, filesList[i].raw.name);
-        console.log("加入了一个文件");
+        //closeDebug console.log("加入了一个文件");
       }
       updateAwardImg(formData)
         .then((res) => {
-          console.log("-----------更新图片---------------");
-          console.log("服务器返回值：", res);
+          //closeDebug console.log("-----------更新图片---------------");
+          //closeDebug console.log("服务器返回值：", res);
           if (res.code === 0) {
             _this.$notify({
               title: res.msg,
@@ -102,22 +102,22 @@ export default {
     },
     //处理已上传图片与表单内容的同步
     handleChange(file, fileList) {
-      console.log("添加图片后", file, fileList);
+      //closeDebug console.log("添加图片后", file, fileList);
       this.awardPicList = fileList;
     },
     //处理已上传的图片的删除
     handleRemove(file, fileList) {
-      console.log("删除图片后", file, fileList);
+      //closeDebug console.log("删除图片后", file, fileList);
     },
     //处理已上传的图片的点击预览
     handlePreview(file) {
-      console.log("点击预览了", file);
+      //closeDebug console.log("点击预览了", file);
       this.dialogImageUrl = file.url;
       this.previewVisible = true;
     },
     //处理上传图片超过限制
     handleExceed(files, fileList) {
-      console.log("数量超出限制时", files, fileList);
+      //closeDebug console.log("数量超出限制时", files, fileList);
       this.$message({
         message: "已达到图片数量上限",
         type: "error",

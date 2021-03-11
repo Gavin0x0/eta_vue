@@ -118,8 +118,8 @@ export default {
           params.append("captcha", this.loginForm.captcha);
           login(params)
             .then((res) => {
-              console.log("-----------获取登录信息---------------");
-              console.log(res);
+              //closeDebug console.log("-----------获取登录信息---------------");
+              //closeDebug console.log(res);
               if (res.code === 0) {
                 _this.$message({
                   message: res.msg,
@@ -141,7 +141,7 @@ export default {
             .catch((failResponse) => {});
         } else {
           //前端校验未通过
-          console.log("error submit!!");
+          //closeDebug console.log("error submit!!");
           return false;
         }
       });
@@ -165,7 +165,7 @@ export default {
           _this.$refs.code.setAttribute("src", window.URL.createObjectURL(res));
         })
         .catch((err) => {
-          console.log("验证码请求error",err);
+          //closeDebug console.log("验证码请求error",err);
         });
     },
 

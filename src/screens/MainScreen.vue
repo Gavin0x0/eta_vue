@@ -208,7 +208,7 @@ export default {
   watch: {
     windowWidth(val) {
       let that = this;
-      console.log("实时屏幕宽度：", val, that.windowHeight);
+      //closeDebug console.log("实时屏幕宽度：", val, that.windowHeight);
     },
   },
 
@@ -242,14 +242,14 @@ export default {
       let _this = this;
       initHome()
         .then((res) => {
-          console.log("-----------主页初始化---------------");
+          //closeDebug console.log("-----------主页初始化---------------");
           if (res.code === 0) {
             // _this.$message({
             //   message: res.msg,
             //   type: "success",
             // });
             let obj = JSON.parse(res.msg);
-            console.log("用户信息解析", obj);
+            //closeDebug console.log("用户信息解析", obj);
             this.$store.commit("initUserInfo", {
               totalItemNum: obj.l_document, //总奖项数
               stuItemNum: obj.l_student, //学生奖项数
@@ -279,13 +279,13 @@ export default {
         : "el-icon-s-fold";
     },
     handleOpen(key, keyPath) {
-      console.log("侧边菜单打开了", key, keyPath);
+      //closeDebug console.log("侧边菜单打开了", key, keyPath);
     },
     handleClose(key, keyPath) {
-      console.log("侧边菜单关闭了", key, keyPath);
+      //closeDebug console.log("侧边菜单关闭了", key, keyPath);
     },
     handleSelect(key, keyPath) {
-      console.log("顶部菜单选中了", key, keyPath);
+      //closeDebug console.log("顶部菜单选中了", key, keyPath);
     },
     mobileMenuSelect(key, keyPath) {
       this.isCollapse = false;
@@ -294,7 +294,7 @@ export default {
       let _this = this;
       logout()
         .then((res) => {
-          console.log("退出登陆", res);
+          //closeDebug console.log("退出登陆", res);
           if (res.code === 0) {
             _this.$message({
               message: res.msg,

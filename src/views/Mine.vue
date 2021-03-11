@@ -104,7 +104,7 @@ export default {
   mounted() {
     this.getTableData(10, 1);
     if (document.documentElement.clientWidth < 720) {
-      console.log("触发移动端布局");
+      //closeDebug console.log("触发移动端布局");
       this.paginationLayout = "prev, pager, next,  ->, total";
       this.ifSmall = true;
       this.Columns = [
@@ -124,8 +124,8 @@ export default {
       params.append("page", page);
       getMyAwardList(params)
         .then((res) => {
-          console.log("-----------获取表格数据---------------");
-          console.log(res.data);
+          //closeDebug console.log("-----------获取表格数据---------------");
+          //closeDebug console.log(res.data);
           (this.tableData = res.data), (this.dataCount = res.count);
         })
         .catch((failResponse) => {});
@@ -136,32 +136,32 @@ export default {
     },
     handleSizeChange(val) {
       this.pageSize = val;
-      console.log(`每页 ${val} 条`);
+      //closeDebug console.log(`每页 ${val} 条`);
       this.getTableData(val, 1);
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      //closeDebug console.log(`当前页: ${val}`);
       this.getTableData(this.pageSize, val);
     },
     handleShow(index, row) {
-      console.log("点击查看", index, row);
+      //closeDebug console.log("点击查看", index, row);
       let params = new URLSearchParams();
       params.append("id", row.id);
       if (this.roleId === 5) {
         getStuDetail(params)
           .then((res) => {
-            console.log("-----------获取学生奖项详情---------------");
+            //closeDebug console.log("-----------获取学生奖项详情---------------");
             let obj = JSON.parse(res.msg);
-            console.log("个人奖项详情", obj);
+            //closeDebug console.log("个人奖项详情", obj);
             this.detailData = obj;
           })
           .catch((failResponse) => {});
       } else {
         getTeaDetail(params)
           .then((res) => {
-            console.log("-----------获取教师奖项详情---------------");
+            //closeDebug console.log("-----------获取教师奖项详情---------------");
             let obj = JSON.parse(res.msg);
-            console.log("个人奖项详情", obj);
+            //closeDebug console.log("个人奖项详情", obj);
             this.detailData = obj;
           })
           .catch((failResponse) => {});

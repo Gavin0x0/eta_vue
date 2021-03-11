@@ -91,16 +91,16 @@ const router = new VueRouter({
 // 全局前置守卫
 router.beforeEach((to, from, next) => {
   if (to.path !== "/") {
-    // console.log("登陆状态",store.state.ifLogin)
+    // //closeDebug console.log("登陆状态",store.state.ifLogin)
     // next();
     let ifLogin = false
     checkState()
       .then((res) => {
-        console.log("登陆状态检测请求成功", res);
+        //closeDebug console.log("登陆状态检测请求成功", res);
         ifLogin = true;
       })
       .catch((err) => {
-        console.log("登陆状态检测请求失败", err);
+        //closeDebug console.log("登陆状态检测请求失败", err);
       })
       .finally(() => {
         if (!ifLogin) {

@@ -120,7 +120,7 @@ export default {
   mounted() {
     // 得到验证码图片
     this.changeCode();
-    console.log("mounted!");
+    //closeDebug console.log("mounted!");
   },
   methods: {
     //点击登陆，提交表单
@@ -135,8 +135,8 @@ export default {
           params.append("captcha", this.loginForm.captcha);
           login(params)
             .then((res) => {
-              console.log("-----------获取登录信息---------------");
-              console.log(res);
+              //closeDebug console.log("-----------获取登录信息---------------");
+              //closeDebug console.log(res);
               if (res.code === 0) {
                 _this.$message({
                   message: res.msg,
@@ -158,7 +158,7 @@ export default {
             .catch((failResponse) => {});
         } else {
           //前端校验未通过
-          console.log("error submit!!");
+          //closeDebug console.log("error submit!!");
           return false;
         }
       });
@@ -179,11 +179,11 @@ export default {
       //此接口传入的是blob格式数据，再渲染至窗口
       getCaptcha(captcha_key)
         .then((res) => {
-          console.log(res);
+          //closeDebug console.log(res);
           _this.$refs.code.setAttribute("src", window.URL.createObjectURL(res));
         })
         .catch((err) => {
-          console.log(err);
+          //closeDebug console.log(err);
         });
     },
     showPwd() {
