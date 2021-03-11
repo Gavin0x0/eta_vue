@@ -218,6 +218,16 @@ export const exportStuAwardZIP = (params) => getFile(`eta6/query-stu/exportZIP`,
  */
  export const delStuAward = (params) => get(`eta6/query-stu/del`, params);
 
+/**
+ * 更新奖项图片（POST）
+ * 需传入的参数  
+ * id: 项目ID    
+ * file: (二进制)
+ * @param {FormData} data
+ * @returns
+ */
+ export const updateAwardImg = (data) => postFile(`eta6/query-stu/updateImg`, data);
+
 // =====================================================================> 管理教师获奖 API
 /**
  * 初始化查询参数（GET）  

@@ -84,6 +84,7 @@
       :page-sizes="[10, 20, 30, 40, 50, 100]"
       :page-size="pageSize"
       :layout="paginationLayout"
+      :small="ifSmall"
       :total="dataCount"
     >
     </el-pagination>
@@ -143,6 +144,7 @@ export default {
   computed: {},
   data() {
     return {
+      ifSmall:false,
       paginationLayout: "prev, pager,next, jumper, ->, total, sizes",
       // 数据列
       Columns: [
@@ -175,8 +177,13 @@ export default {
     this.onQuery();
     if (document.documentElement.clientWidth < 720) {
       console.log("触发移动端布局");
-      this.paginationLayout = "prev, pager, next,  ->, total";
-      
+      this.paginationLayout = "prev, pager,next, ->, total";
+      this.ifSmall = true
+      this.Columns=[
+        { name: "奖项ID", value: "id", width: "90", ifShow: false },
+        { name: "奖项类型", value: "typeName", width: "100", ifShow: false },
+        { name: "奖项名称", value: "awardName", width: "auto", ifShow: true },
+      ]
     }
   },
   methods: {

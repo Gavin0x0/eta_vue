@@ -41,7 +41,8 @@
         :current-page="currentPage"
         :page-sizes="[10, 20, 30, 40, 50, 100]"
         :page-size="pageSize"
-        layout="prev, pager,next,  ->, total"
+        :layout="paginationLayout"
+        :small="ifSmall"
         :total="dataCount"
         
       >
@@ -69,6 +70,8 @@ export default {
   components: { UploadForm },
   data() {
     return {
+      ifSmall:false,
+      paginationLayout:"prev, pager,next,  ->, total",
       ifSelected: false,
       awardSelected: "",
       awardIdSelected: 0,
@@ -81,6 +84,10 @@ export default {
   },
   mounted() {
     this.getTableData();
+    if (document.documentElement.clientWidth < 720) {
+      console.log("触发移动端布局");
+      this.ifSmall = true
+    }
   },
   methods: {
     //调用接口取数据

@@ -105,7 +105,6 @@
         border
         style="width: 100%"
         @sort-change="onSortChange"
-        
       >
         <template v-for="col in Columns">
           <el-table-column
@@ -118,16 +117,10 @@
           >
           </el-table-column>
         </template>
-        <el-table-column label="操作" width="220" fixed="right" align="center">
+        <el-table-column label="操作" width="80" fixed="right" align="center">
           <template slot-scope="scope">
             <el-button size="mini" @click="handleShow(scope.$index, scope.row)"
               >查看</el-button
-            >
-            <el-button size="mini" type="success" @click="handlePass(scope.$index, scope.row)"
-              >通过</el-button
-            >
-            <el-button size="mini" type="danger" @click="handleNotPass(scope.$index, scope.row)"
-              >驳回</el-button
             >
           </template>
         </el-table-column>
@@ -140,12 +133,30 @@
         :page-sizes="[10, 20, 30, 40, 50, 100]"
         :page-size="pageSize"
         :layout="paginationLayout"
+        :small="ifSmall"
         :total="dataCount"
       >
       </el-pagination>
     </div>
     <StuDetail :detailData="detailData" :goback="goBack" v-show="ifShowDetail">
     </StuDetail>
+    <el-row type="flex" justify="center">
+      
+      <el-button
+        v-show="ifShowDetail"
+        type="danger"
+        style="margin:10px"
+        @click="handleNotPass()"
+        >驳回</el-button
+      >
+      <el-button
+        v-show="ifShowDetail"
+        type="success"
+        style="margin:10px"
+        @click="handlePass()"
+        >通过</el-button
+      >
+    </el-row>
   </div>
 </template>
 
@@ -156,7 +167,7 @@ import {
   getClassList,
   initReview,
   passAward,
-  notPassAward
+  notPassAward,
 } from "../api";
 import StuDetail from "../components/StuDetail.vue";
 export default {
@@ -165,6 +176,8 @@ export default {
   computed: {},
   data() {
     return {
+      reviewId: 0,
+      ifSmall:false,
       paginationLayout: "prev, pager,next, jumper, ->, total, sizes",
       ifShowDetail: false,
       // 数据列
@@ -207,8 +220,19 @@ export default {
     this.onQuery();
     if (document.documentElement.clientWidth < 720) {
       console.log("触发移动端布局");
-      this.paginationLayout = "next,jumper,  ->, total";
-      
+      this.paginationLayout = "prev, pager,next, ->, total";
+      this.ifSmall = true
+      this.Columns=[
+
+        { name: "学号", value: "username", width: "120", ifShow: false },
+        { name: "姓名", value: "name", width: "80", ifShow: true },
+        { name: "班级", value: "className", width: "200", ifShow: false },
+        { name: "奖项等级", value: "rankName", width: "120", ifShow: false },
+        { name: "获奖名次", value: "awardPlace", width: "120", ifShow: false },
+        { name: "奖项名称", value: "awardName", width: "auto", ifShow: true },
+        { name: "获奖时间", value: "awardTime", width: "200", ifShow: false },
+        { name: "上传时间", value: "createAt", width: "200", ifShow: false },
+      ]
     }
   },
   methods: {
@@ -256,19 +280,20 @@ export default {
     handleSizeChange(val) {
       this.pageSize = val;
       console.log(`每页 ${val} 条`);
-      this.onQuery()
+      this.onQuery();
     },
     //处理跳页
     handleCurrentChange(val) {
       this.currentPage = val;
       console.log(`当前页: ${val}`);
-      this.onQuery()
+      this.onQuery();
     },
     //处理查看详情
     handleShow(index, row) {
       console.log("点击查看", index, row);
       let params = new URLSearchParams();
       params.append("id", row.id);
+      this.reviewId = row.id;
       getStuDetail(params)
         .then((res) => {
           console.log("-----------获取个人奖项详情---------------");
@@ -279,57 +304,60 @@ export default {
         .catch((failResponse) => {});
       this.ifShowDetail = true;
     },
-    //处理驳回奖项
-    handlePass(index, row) {
-      console.log("点击通过", index, row);
+    //处理通过奖项
+    handlePass() {
+      console.log("点击通过");
       let params = new URLSearchParams();
-      params.append("id", row.id);
-      let _this = this
+      params.append("id", this.reviewId);
+      let _this = this;
       passAward(params)
         .then((res) => {
           console.log("-----------通过奖项---------------");
           if (res.code === 0) {
-                _this.$message({
-                  message: res.msg,
-                  type: "success",
-                });
-                _this.onQuery()
-              } else {
-                _this.$message({
-                  message: res.msg,
-                  type: 'error'
-                });
-              }
+            _this.$message({
+              message: res.msg,
+              type: "success",
+            });
+            _this.onQuery();
+          } else {
+            _this.$message({
+              message: res.msg,
+              type: "error",
+            });
+          }
         })
         .catch((failResponse) => {});
+      this.goBack();
     },
     //处理驳回奖项
-    handleNotPass(index, row) {
-      console.log("点击驳回", index, row);
+    handleNotPass() {
+      console.log("点击驳回");
       let params = new URLSearchParams();
-      params.append("id", row.id);
-      let _this = this
+      params.append("id", this.reviewId);
+      let _this = this;
       notPassAward(params)
         .then((res) => {
           console.log("-----------驳回奖项---------------");
           if (res.code === 0) {
-                _this.$message({
-                  message: res.msg,
-                  type: "success",
-                });
-                _this.onQuery()
-              } else {
-                _this.$message({
-                  message: res.msg,
-                  type: 'error'
-                });
-              }
+            _this.$message({
+              message: res.msg,
+              type: "success",
+            });
+            _this.onQuery();
+          } else {
+            _this.$message({
+              message: res.msg,
+              type: "error",
+            });
+          }
         })
         .catch((failResponse) => {});
+      this.goBack();
     },
     //返回重选奖项
     goBack() {
       this.ifShowDetail = false;
+      this.reviewId = 0;
     },
     //处理数据筛选
     onQuery() {
@@ -357,17 +385,17 @@ export default {
         .catch((failResponse) => {});
     },
     //处理排序后重新获取数据
-    onSortChange(res){
-      console.log("触发排序:",res)
-      if(res.order){
-        this.orderMode = (res.order==="descending"?"desc":"asc")
-        this.orderField = res.prop
-      }else{
-        this.orderMode = ""
-        this.orderField = ""
+    onSortChange(res) {
+      console.log("触发排序:", res);
+      if (res.order) {
+        this.orderMode = res.order === "descending" ? "desc" : "asc";
+        this.orderField = res.prop;
+      } else {
+        this.orderMode = "";
+        this.orderField = "";
       }
-      console.log(this.orderMode,this.orderField)
-      this.onQuery()
+      console.log(this.orderMode, this.orderField);
+      this.onQuery();
     },
   },
 };

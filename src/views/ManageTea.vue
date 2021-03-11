@@ -88,6 +88,7 @@
       :page-sizes="[10, 20, 30, 40, 50, 100]"
       :page-size="pageSize"
       :layout="paginationLayout"
+      :small="ifSmall"
       :total="dataCount"
     >
     </el-pagination>
@@ -202,6 +203,7 @@ export default {
   computed: {},
   data() {
     return {
+      ifSmall:false,
       paginationLayout: "prev, pager,next, jumper, ->, total, sizes",
       ifShowUpdateDialog: false, //修改弹窗
       selectTea: {}, //选中的教师
@@ -247,8 +249,15 @@ export default {
     this.onQuery();
     if (document.documentElement.clientWidth < 720) {
       console.log("触发移动端布局");
-      this.paginationLayout = "prev, pager, next,  ->, total";
-      
+      this.ifSmall = true
+      this.paginationLayout = "prev, pager,next, ->, total";
+      this.Columns=[
+        { name: "ID", value: "userId", width: "100", ifShow: false },
+        { name: "教职工号", value: "username", width: "150", ifShow: false },
+        { name: "姓名", value: "name", width: "80", ifShow: true },
+        { name: "性别", value: "genderName", width: "80", ifShow: false },
+        { name: "角色", value: "roleName", width: "auto", ifShow: true },
+      ]
     }
   },
   methods: {

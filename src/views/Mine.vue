@@ -47,6 +47,7 @@
         :page-sizes="[10, 20, 30, 40, 50, 100]"
         :page-size="pageSize"
         :layout="paginationLayout"
+        :small="ifSmall"
         :total="dataCount"
       >
       </el-pagination>
@@ -83,6 +84,7 @@ export default {
   },
   data() {
     return {
+      ifSmall: false,
       paginationLayout: "prev, pager,next, jumper, ->, total, sizes",
       ifShowDetail: false,
       detailData: {},
@@ -104,6 +106,7 @@ export default {
     if (document.documentElement.clientWidth < 720) {
       console.log("触发移动端布局");
       this.paginationLayout = "prev, pager, next,  ->, total";
+      this.ifSmall = true;
       this.Columns = [
         { name: "状态", value: "reviewName", width: "80", ifShow: true },
         { name: "奖项", value: "awardName", width: "auto", ifShow: true },

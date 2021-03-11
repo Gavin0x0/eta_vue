@@ -124,6 +124,7 @@
             :label="col.name"
             sortable="custom"
             :key="col.value"
+            show-overflow-tooltip
           >
           </el-table-column>
         </template>
@@ -160,20 +161,24 @@
         :page-sizes="[10, 20, 30, 40, 50, 100]"
         :page-size="pageSize"
         :layout="paginationLayout"
+        :small="ifSmall"
         :total="dataCount"
       >
       </el-pagination>
     </div>
     <StuDetail :detailData="detailData" :goback="goBack" v-show="ifShowDetail">
     </StuDetail>
-    <el-row type="flex" justify="center" v-if="roleId===1">
+    
+    <el-row type="flex" justify="center">
       <el-button
         @click="onSelect2Show"
+        v-if="roleId===1"
         v-show="ifShowDetail"
         style="margin:10px"
         type="primary"
         >设为展示项</el-button
       >
+      <UpdateAwardButton :id="selectId" v-show="ifShowDetail" v-if="roleId===1||roleId===3"></UpdateAwardButton>
     </el-row>
   </div>
 </template>
@@ -190,14 +195,18 @@ import {
   addAwardShow,
 } from "../api";
 import StuDetail from "../components/StuDetail.vue";
+import UpdateAwardButton from "../components/UpdateAwardButton.vue"
 import { mapGetters } from "vuex";
 export default {
   name: "QueryStu",
-  components: { StuDetail },
+  components: { StuDetail,UpdateAwardButton },
   computed: {},
   data() {
     return {
+      selectId:0,
+      ifSmall:false,
       paginationLayout: "prev, pager,next, jumper, ->, total, sizes",
+      ifShowUpdateDialog:false,
       ifShowDetail: false,
       // 数据列
       Columns: [
@@ -245,8 +254,19 @@ export default {
     this.onQuery();
     if (document.documentElement.clientWidth < 720) {
       console.log("触发移动端布局");
-      this.paginationLayout = "prev, pager, next,  ->, total";
-      
+      this.ifSmall = true
+      this.paginationLayout = "prev, pager,next, ->, total";
+      this.Columns=[
+        { name: "学号", value: "username", width: "120", ifShow: false },
+        { name: "姓名", value: "name", width: "80", ifShow: true },
+        { name: "班级", value: "className", width: "200", ifShow: false },
+        { name: "奖项等级", value: "rankName", width: "120", ifShow: false },
+        { name: "获奖名次", value: "awardPlace", width: "120", ifShow: false },
+        { name: "奖项名称", value: "awardName", width: "auto", ifShow: true },
+        { name: "获奖时间", value: "awardTime", width: "200", ifShow: false },
+        { name: "上传时间", value: "createAt", width: "200", ifShow: false },
+        { name: "审核时间", value: "reviewAt", width: "200", ifShow: false },
+      ]
     }
   },
   methods: {
@@ -307,6 +327,8 @@ export default {
       console.log("点击查看", index, row);
       let params = new URLSearchParams();
       params.append("id", row.id);
+      console.log("选择了",row.id)
+      this.selectId = row.id
       getStuDetail(params)
         .then((res) => {
           console.log("-----------获取个人奖项详情---------------");
@@ -476,6 +498,7 @@ export default {
           .catch((failResponse) => {});
       }
     },
+    
   },
 };
 </script>

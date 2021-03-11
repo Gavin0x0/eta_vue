@@ -77,6 +77,7 @@
             :label="col.name"
             sortable="custom"
             :key="col.value"
+            show-overflow-tooltip
           >
           </el-table-column>
         </template>
@@ -113,6 +114,7 @@
         :page-sizes="[10, 20, 30, 40, 50, 100]"
         :page-size="pageSize"
         :layout="paginationLayout"
+        :small="ifSmall"
         :total="dataCount"
       >
       </el-pagination>
@@ -138,6 +140,7 @@ export default {
   computed: {},
   data() {
     return {
+      ifSmall:false,
       paginationLayout: "prev, pager,next, jumper, ->, total, sizes",
       ifShowDetail: false,
       // 数据列
@@ -172,7 +175,16 @@ export default {
     this.onQuery();
     if (document.documentElement.clientWidth < 720) {
       console.log("触发移动端布局");
-      this.paginationLayout = "prev, pager, next,  ->, total";
+      this.ifSmall = true
+      this.paginationLayout = "prev, pager,next, ->, total";
+      this.Columns=[
+        { name: "教职工号", value: "username", width: "120", ifShow: false },
+        { name: "姓名", value: "name", width: "80", ifShow: true },
+        { name: "奖项等级", value: "rankName", width: "120", ifShow: false },
+        { name: "获奖名次", value: "awardPlace", width: "120", ifShow: false },
+        { name: "奖项名称", value: "awardName", width: "", ifShow: true },
+        { name: "获奖时间", value: "awardTime", width: "200", ifShow: false },
+      ]
       
     }
   },
