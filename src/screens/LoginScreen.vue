@@ -256,7 +256,7 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
-  background: transparent url(../assets/background.jpg) center center no-repeat;
+  background: linear-gradient( rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) ), url(../assets/background.jpg) center center no-repeat;
   filter: blur(8px);
   z-index: -1;
   background-size: cover;
@@ -267,8 +267,9 @@ a {
   margin: 20px 80px;
   padding: 5% 5% 5% 5%;
   border-radius: 6px;
-  background: rgb(249 247 247 / 83%);
+  background: rgb(249 247 247 / 83%); 
   box-shadow: 1px 1px 20px 10px rgb(80 80 80 / 21%);
+  
 }
 .login-title {
   text-align: center;
