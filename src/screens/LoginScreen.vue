@@ -1,58 +1,81 @@
 <template>
   <div class="login">
-    <el-container>
-      <el-header>头部【tt】</el-header>
-      <el-container>
-        <el-aside width="60%" class="hidden-xs-only">
-          <img alt="Vue logo" src="../assets/logo.png" />
-        </el-aside>
-        <el-container>
-          <el-main>
-            <el-form
-              :model="loginForm"
-              status-icon
-              :rules="rules"
-              ref="loginForm"
-              label-width="80px"
-              style="margin-right:30px"
+    <transition name="el-zoom-in-top" appear>
+    <div class="login-header">
+      <span class="logo" style="margin-left:20px">ETA</span>
+      <span class="logo-text">奖项成果智能管理系统</span>
+    </div>
+    </transition>
+    <transition name="el-fade-in-linear" appear>
+    <div class="login-box">
+      <el-form
+        ref="loginForm"
+        :model="loginForm"
+        :rules="rules"
+        status-icon
+        :label-width="label_date.width"
+        class="login-form"
+      >
+        <h3 class="login-title">用户登陆「内测版」</h3>
+        <el-form-item :label="label_date.user" prop="username">
+          <el-input
+            v-model.number="loginForm.username"
+            placeholder="Username"
+          ></el-input>
+        </el-form-item>
+        <el-form-item :label="label_date.pwd" prop="password">
+          <el-input
+            type="password"
+            v-model="loginForm.password"
+            autocomplete="off"
+            placeholder="Password"
+          ></el-input>
+        </el-form-item>
+        <el-form-item :label="label_date.cap" prop="captcha">
+          <div class="captcha-input-container">
+            <el-input
+              v-model="loginForm.captcha"
+              placeholder="Verify"
+              autocomplete="off"
+            ></el-input>
+            <img
+              class="captcha-img"
+              src=""
+              ref="code"
+              alt="verify"
+              @click="changeCode"
+            />
+          </div>
+        </el-form-item>
+        <el-form-item>
+          <div class="button-group">
+            <el-button
+              icon="el-icon-s-custom"
+              type="primary"
+              @click="submitForm('loginForm')"
+              >登陆</el-button
             >
-              <el-form-item label="账号" prop="username">
-                <el-input v-model.number="loginForm.username"></el-input>
-              </el-form-item>
-              <el-form-item label="密码" prop="password">
-                <el-input
-                  type="password"
-                  v-model="loginForm.password"
-                  autocomplete="off"
-                ></el-input>
-              </el-form-item>
-              <el-form-item label="验证码" prop="captcha">
-                <div class="captcha-input-container">
-                  <el-input
-                    v-model="loginForm.captcha"
-                    autocomplete="off"
-                  ></el-input>
-                  <img
-                    class="captcha-img"
-                    src=""
-                    ref="code"
-                    @click="changeCode"
-                  />
-                </div>
-              </el-form-item>
-              <el-form-item>
-                <el-button type="primary" @click="submitForm('loginForm')"
-                  >登陆</el-button
-                >
-                <el-button @click="resetForm('loginForm')">重置</el-button>
-                
-              </el-form-item>
-            </el-form>
-          </el-main>
-          <el-footer>底部【dd】</el-footer>
-        </el-container>
-      </el-container>
-    </el-container>
+            <el-button icon="el-icon-setting" @click="getAdmin()"
+              >获取管理员账号</el-button
+            >
+          </div>
+        </el-form-item>
+      </el-form>
+    </div>
+    </transition>
+    <transition name="el-zoom-in-bottom" appear>
+    <div class="footer">
+      <el-row type="flex" justify="center">
+        <div class="footer">
+          东南大学成贤学院
+          <a class="bottom-link" href="http://jsjx.cxxy.seu.edu.cn/"
+            >电子与计算机工程学院</a
+          >
+          技术支持
+        </div>
+      </el-row>
+    </div>
+    </transition>
   </div>
 </template>
 <script>
@@ -87,6 +110,12 @@ export default {
       }
     };
     return {
+      label_date:{
+        width:"60px",
+        user:"账号",
+        pwd:"密码",
+        cap:"验证码",
+      },
       //表单数据
       loginForm: {
         password: "",
@@ -104,11 +133,21 @@ export default {
   mounted() {
     // 得到验证码图片
     this.changeCode();
+    //closeDebug console.log("mounted!");
+    if (document.documentElement.clientWidth < 390) {
+      //closeDebug console.log("触发移动端布局");
+      this.label_date={
+        width:"0px",
+        user:"",
+        pwd:"",
+        cap:"",
+      }
+    }
   },
   methods: {
     //点击登陆，提交表单
     submitForm(formName) {
-      let _this = this
+      let _this = this;
       this.$refs[formName].validate((valid) => {
         if (valid) {
           //前端校验通过后，进行登陆操作
@@ -126,14 +165,14 @@ export default {
                   type: "success",
                 });
                 //设置登陆状态
-                this.$store.commit("setLoginState", true);
+                //_this.$store.commit("setLoginState", true);
                 setTimeout(function() {
                   _this.$router.push({ path: "/eta/home" });
                 }, 1000);
               } else {
                 _this.$message({
                   message: res.msg,
-                  type: 'error'
+                  type: "error",
                 });
                 _this.changeCode();
               }
@@ -146,9 +185,10 @@ export default {
         }
       });
     },
-    //重置表单
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+    //获取管理员账号
+    getAdmin() {
+      this.loginForm.username = "999999999";
+      this.loginForm.password = "999999999";
     },
     //获取随机数作来生成验证码
     getCaptchaKey() {
@@ -162,55 +202,110 @@ export default {
       //此接口传入的是blob格式数据，再渲染至窗口
       getCaptcha(captcha_key)
         .then((res) => {
+          //closeDebug console.log(res);
           _this.$refs.code.setAttribute("src", window.URL.createObjectURL(res));
         })
         .catch((err) => {
-          //closeDebug console.log("验证码请求error",err);
+          //closeDebug console.log(err);
         });
     },
-
-    
+    showPwd() {
+      if (this.passwordType === "password") {
+        this.passwordType = "";
+      } else {
+        this.passwordType = "password";
+      }
+      this.$nextTick(() => {
+        this.$refs.password.focus();
+      });
+    },
   },
 };
 </script>
+<style scoped>
+.login-form >>> .el-form-item__label {
+  text-align-last: justify;
+  width: 100%;
+}
+</style>
 <style>
-.login {
-  padding: 0px;
-  margin: 0px;
-  height: 100%;
-}
-.el-header,
-.el-footer {
-  background-color: #b3c0d1;
-  color: #333;
-  text-align: center;
+.login-header {
+  position: absolute;
+  background-color: rgb(249 247 247 / 83%);
+  top: 0px;
+  left: 0px;
   line-height: 60px;
+  width: 100%;
 }
-
-.el-aside {
-  background-color: #d3dce6;
-  color: #333;
+a {
+  text-decoration-line: none;
+  color: #303133;
+}
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  width: 100%;
+}
+.login::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent url(../assets/background.jpg) center center no-repeat;
+  filter: blur(8px);
+  z-index: -1;
+  background-size: cover;
+}
+.login-box {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 80px;
+  padding: 5% 5% 5% 5%;
+  border-radius: 6px;
+  background: rgb(249 247 247 / 83%);
+  box-shadow: 1px 1px 20px 10px rgb(80 80 80 / 21%);
+}
+.login-title {
   text-align: center;
-  line-height: 200px;
+  margin: 10px auto 30px auto;
+  color: #303133;
 }
-
-
-.el-aside>img {
-  width: 50%;
+.button-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
-
-.el-main {
-  background-color: #e9eef3;
-  color: #333;
-}
-
-body > .el-container {
-  margin-bottom: 40px;
-}
-
 .captcha-input-container {
   display: flex;
   flex-direction: row;
+}
+.footer {
+  position: fixed;
+  width: 100%;
+  left: 0px;
+  bottom: 0px;
+  font-size: 12px;
+  text-align: center;
+  background: rgb(249 247 247 / 83%);
+  color: rgb(70, 69, 69);
+  line-height: 60px;
+}
+.bottom-link {
+  text-decoration: none;
+}
+/* 未访问的链接 */
+.bottom-link:link {
+  color: #0084ff;
+}
+
+/* 已访问的链接 */
+.bottom-link:visited {
+  color: #0084ff;
 }
 .captcha-img {
   height: 38px;

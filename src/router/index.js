@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import LoginScreen from "../test/LoginScreen.vue";
+import LoginScreen from "../screens/LoginScreen.vue";
 import MainScreen from "../screens/MainScreen.vue";
 import { checkState } from "../api/index";
 import { Message } from "element-ui";

@@ -4,7 +4,7 @@
     <el-carousel :interval="4000" height="300px" type="card">
       <el-carousel-item v-for="item in detailData.imagePaths" :key="item">
         <el-image
-          style="width: auto; height: 300px"
+          class="image-row"
           :src="item"
           fit="scale-down"
           :preview-src-list="detailData.imagePaths"
@@ -82,6 +82,12 @@ export default {
 };
 </script>
 <style>
+.image-row {
+  width: auto;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+}
 .row-container {
   min-height: 30px;
   margin-top: 10px;

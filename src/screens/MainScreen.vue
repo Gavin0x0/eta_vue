@@ -14,7 +14,7 @@
           :icon="CollapseIcon"
         ></el-button>
         <span class="logo">ETA</span>
-        <span class="logo-text hidden-xs-only">奖项成果管理系统</span>
+        <span class="logo-text hidden-xs-only">奖项成果智能管理系统</span>
         <el-submenu style="float:right" index="2">
           <template slot="title">👋 你好，{{ name }}</template>
           <el-menu-item index="2-1">账号：{{ username }}</el-menu-item>

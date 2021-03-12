@@ -29,6 +29,24 @@
             sortable="custom"
             :key="col.value"
           >
+            <template slot-scope="scope">
+              <i
+                class="el-icon-success"
+                style="color:#67C23A;margin-right:4px"
+                v-if="scope.row[col.value] == '已审核'"
+              ></i>
+              <i
+                class="el-icon-question"
+                style="color:#E6A23C;margin-right:4px"
+                v-if="scope.row[col.value] == '未审核'"
+              ></i>
+              <i
+                class="el-icon-warning"
+                style="color:#F56C6C;margin-right:4px"
+                v-if="scope.row[col.value] == '未通过'"
+              ></i>
+              <span>{{ scope.row[col.value] }}</span>
+            </template>
           </el-table-column>
         </template>
         <el-table-column label="操作" width="80" fixed="right" align="center">
@@ -93,10 +111,10 @@ export default {
       tableData: [{}],
       // 数据列
       Columns: [
-        { name: "审核状态", value: "reviewName", width: "120", ifShow: true },
-        { name: "奖项", value: "awardName", width: "280", ifShow: true },
+        { name: "审核状态", value: "reviewName", width: "130", ifShow: true },
+        { name: "奖项", value: "awardName", width: "auto", ifShow: true },
         { name: "获奖等级", value: "rankName", width: "120", ifShow: true },
-        { name: "上传时间", value: "createAt", width: "auto", ifShow: true },
+        { name: "上传时间", value: "createAt", width: "280", ifShow: true },
       ],
       dataCount: 0, //总数据条数
     };
@@ -108,7 +126,7 @@ export default {
       this.paginationLayout = "prev, pager, next,  ->, total";
       this.ifSmall = true;
       this.Columns = [
-        { name: "状态", value: "reviewName", width: "80", ifShow: true },
+        { name: "状态", value: "reviewName", width: "85", ifShow: true },
         { name: "奖项", value: "awardName", width: "auto", ifShow: true },
         { name: "等级", value: "rankName", width: "120", ifShow: false },
         { name: "上传时间", value: "createAt", width: "auto", ifShow: false },
