@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button @click="goback()">返回</el-button>
+    <el-page-header @back="goback()" content="奖项详情页"> </el-page-header>
     <el-carousel :interval="4000" height="300px" type="card">
       <el-carousel-item v-for="item in detailData.imagePaths" :key="item">
         <el-image
@@ -83,17 +83,19 @@ export default {
 </script>
 <style>
 .row-container {
-  min-height: 36px;
+  min-height: 30px;
   margin-top: 10px;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid rgba(156, 156, 156, 0.849);
   margin-left: 10%;
   margin-right: 10%;
 }
 .row-title {
   text-align: center;
   font-weight: 500;
+  font-size: 0.9rem;
 }
 .row-content {
   text-align: center;
+  font-size: 0.9rem;
 }
 </style>

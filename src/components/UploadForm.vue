@@ -26,7 +26,7 @@
           </template>
         </el-select>
       </el-form-item>
-      <el-form-item label="获奖时间" required prop="awardTime">
+      <el-form-item label="获奖时间" prop="awardTime">
         <el-date-picker
           type="date"
           placeholder="选择日期"
@@ -39,7 +39,7 @@
       <el-form-item label="获奖名次" prop="awardPlace">
         <el-input
           v-model="FormData.awardPlace"
-          placeholder="请输入获奖名次"
+          placeholder="例如：一等奖、科技进步奖，无等级可填奖项名"
         ></el-input>
       </el-form-item>
       <el-dialog :visible.sync="dialogVisible" width="90%">

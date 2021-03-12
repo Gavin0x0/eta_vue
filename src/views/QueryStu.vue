@@ -1,6 +1,6 @@
 <template>
   <div class="query-stu">
-    <h3>管理学生获奖</h3>
+    <h3 v-show="!ifShowDetail">管理学生获奖</h3>
     <div v-show="!ifShowDetail">
       <el-form :inline="true" class="demo-form-inline" size="mini">
         <el-form-item>

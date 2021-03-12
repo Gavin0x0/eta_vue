@@ -1,6 +1,6 @@
 <template>
   <div class="mine">
-    <h3>获奖记录</h3>
+    <h3 v-show="!ifShowDetail">获奖记录</h3>
     <div v-show="!ifShowDetail">
       <div class="check-group">
         <span>显示列：</span>
@@ -180,5 +180,8 @@ export default {
 <style>
 .pagination {
   margin-top: 20px;
+}
+.check-group {
+  margin-bottom: 10px;
 }
 </style>

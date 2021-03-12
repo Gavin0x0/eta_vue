@@ -9,20 +9,22 @@
     <el-carousel :interval="4000" :type="carouselType" height="300px">
       <el-carousel-item v-for="item in tableData" :key="item.id">
         <div class="image-item">
-        <el-image
-          style="width: auto; height: 300px"
-          :src="item.imagePath"
-          fit="scale-down"
-          :preview-src-list="previewList"
-          ><div slot="error" class="image-slot">
-            <i class="el-icon-picture-outline"></i></div
-        ></el-image>
-        <h3>{{item.writing}}</h3>
+          <el-image
+            style="width: auto; height: 300px"
+            :src="item.imagePath"
+            fit="scale-down"
+            :preview-src-list="previewList"
+            ><div slot="error" class="image-slot">
+              <i class="el-icon-picture-outline"></i></div
+          ></el-image>
+          <h3>{{ item.writing }}</h3>
         </div>
       </el-carousel-item>
     </el-carousel>
     <el-dialog title="编辑展示项" :visible.sync="ifShowDialog" width="90%">
-      <span>系统管理员可在「功能菜单」=>「管理学生获奖」=>「查看」中添加展示项（最多展示10项）</span>
+      <span
+        >系统管理员可在「功能菜单」=>「管理学生获奖」=>「查看」中添加展示项（最多展示10项）</span
+      >
       <el-table :data="tableData" style="margin-top:10px">
         <el-table-column
           property="writing"
@@ -69,8 +71,8 @@ export default {
   },
   mounted() {
     this.getTableData();
-    if(this.windowWidth<720){
-      this.carouselType=""
+    if (this.windowWidth < 720) {
+      this.carouselType = "";
     }
   },
   methods: {
@@ -126,8 +128,6 @@ export default {
 </script>
 
 <style>
-
-
 .el-carousel__item:nth-child(2n) {
   background-color: #99a9bf;
 }
@@ -145,11 +145,16 @@ export default {
 
 .image-item {
   height: 300px;
+  display: flex;
+  flex-direction: column;
 }
-.image-item h3{
+.image-item h3 {
   color: #ffffff;
   text-shadow: 1px 2px 10px #1a1a1a;
-  background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(24, 24, 24, 0.3));
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0),
+    rgba(24, 24, 24, 0.3)
+  );
   font-size: 16px;
   line-height: 80px;
   width: 100%;

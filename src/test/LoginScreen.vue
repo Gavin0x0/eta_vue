@@ -9,7 +9,7 @@
         label-width="60px"
         class="login-box"
       >
-        <h3 class="login-title">统一身份认证</h3>
+        <h3 class="login-title">奖项成果智能管理系统「内测版」</h3>
         <el-form-item label="账号" prop="username">
           <el-input
             v-model.number="loginForm.username"
@@ -51,8 +51,8 @@
               @click="submitForm('loginForm')"
               >登陆</el-button
             >
-            <el-button icon="el-icon-setting" @click="resetForm('loginForm')"
-              >重置</el-button
+            <el-button icon="el-icon-setting" @click="getAdmin()"
+              >获取管理员账号</el-button
             >
           </el-form-item>
         </el-row>
@@ -164,8 +164,9 @@ export default {
       });
     },
     //重置表单
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+    getAdmin() {
+      this.loginForm.username = '999999999';
+      this.loginForm.password = '999999999';
     },
     //获取随机数作来生成验证码
     getCaptchaKey() {
