@@ -201,7 +201,7 @@ export default {
   data() {
     return {
       isCollapse: false,
-      CollapseIcon: "el-icon-s-unfold",
+      CollapseIcon: "el-icon-s-fold",
       windowWidth: document.documentElement.clientWidth, //实时屏幕宽度
     };
   },
@@ -235,6 +235,10 @@ export default {
         that.windowWidth = window.fullWidth; // 宽
       })();
     };
+    if (document.documentElement.clientWidth < 720) {
+      //closeDebug console.log("触发移动端布局");
+      this.CollapseIcon="el-icon-s-unfold"
+    }
   },
   methods: {
     //初始化角色

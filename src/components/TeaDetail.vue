@@ -13,71 +13,36 @@
         ></el-image>
       </el-carousel-item>
     </el-carousel>
-    <template v-for="item in detailList">
-      <el-row
-        type="flex"
-        class="row-container"
-        justify="center"
-        :key="item.value"
-      >
-        <el-col :xs="8" :sm="4"
-          ><div class="row-title">{{ item.title }}</div></el-col
-        >
-        <el-col :xs="16" :sm="8"
-          ><div class="row-content">{{ detailData[item.value] }}</div></el-col
-        >
+    <el-card class="box-card">
+      <el-divider content-position="left"><span class="div-font">教师信息</span></el-divider>
+      <el-row :gutter="20">
+        <el-col class="detail-info" :span="12" :xs="24">教职工号：{{detailData.username}}</el-col>
+        <el-col class="detail-info" :span="12" :xs="24">姓名：{{detailData.name}}</el-col>
+        <el-col class="detail-info" :span="12" :xs="24">性别：{{detailData.gender}}</el-col>
       </el-row>
-    </template>
-
+      <el-divider content-position="left"><span class="div-font">奖项信息</span></el-divider>
+      <el-row :gutter="20">
+        <el-col class="detail-info" :span="12" :xs="24">奖项名称：{{detailData.award}}</el-col>
+        <el-col class="detail-info" :span="12" :xs="24">奖项级别：{{detailData.rank}}</el-col>
+        <el-col class="detail-info" :span="12" :xs="24">奖项名次：{{detailData.place}}</el-col>
+        <el-col class="detail-info" :span="12" :xs="24">获奖日期：{{detailData.time}}</el-col>
+      </el-row>
+      <el-divider content-position="left"><span class="div-font">审核信息</span></el-divider>
+      <el-row :gutter="20">
+        <el-col class="detail-info" :span="12" :xs="24">上传时间：{{detailData.createAt}}</el-col>
+        <el-col class="detail-info" :span="12" :xs="24">审核状态：{{detailData.review}}</el-col>
+        <el-col class="detail-info" :span="12" :xs="24">审核时间：{{detailData.reviewAt}}</el-col>
+      </el-row>
+    </el-card>
   </div>
 </template>
 
 <script>
-import { getImage } from "../api";
-/**
- * <el-image
-      
-      :src="item"
-      fit="scale-down">
-      <div slot="error" class="image-slot">
-        <i class="el-icon-picture-outline"></i>
-      </div></el-image>
- */
 export default {
   name: "TeaDetail",
   props: {
     detailData: {},
     goback: { type: Function },
-  },
-  data() {
-    return {
-      detailList: [
-        { title: "教职工号", value: "username" },
-        { title: "姓名", value: "name" },
-        { title: "性别", value: "gender" },
-        { title: "奖项名称", value: "award" },
-        { title: "奖项级别", value: "rank" },
-        { title: "获奖名次", value: "place" },
-        { title: "获奖日期", value: "time" },
-        { title: "上传时间", value: "createAt" },
-        { title: "审核状态", value: "review" },
-        { title: "审核时间", value: "reviewAt" },
-      ],
-    };
-  },
-
-  methods: {
-    randerImage(path) {
-      //closeDebug console.log("ImgPath", path);
-      getImage(path)
-        .then((res) => {
-          //closeDebug console.log(res);
-          _this.$refs.code.setAttribute("src", window.URL.createObjectURL(res));
-        })
-        .catch((err) => {
-          //closeDebug console.log(err);
-        });
-    },
   },
 };
 </script>

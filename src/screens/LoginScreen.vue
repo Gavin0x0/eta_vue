@@ -16,7 +16,7 @@
         :label-width="label_date.width"
         class="login-form"
       >
-        <h3 class="login-title">用户登陆「内测版」</h3>
+        <h3 class="login-title">用户登陆</h3>
         <el-form-item :label="label_date.user" prop="username">
           <el-input
             v-model.number="loginForm.username"
@@ -47,18 +47,14 @@
             />
           </div>
         </el-form-item>
-        <el-form-item>
-          <div class="button-group">
+        <el-form-item label-width="0px">
             <el-button
               icon="el-icon-s-custom"
               type="primary"
               @click="submitForm('loginForm')"
+              style="width:100%;"
               >登陆</el-button
             >
-            <el-button icon="el-icon-setting" @click="getAdmin()"
-              >获取管理员账号</el-button
-            >
-          </div>
         </el-form-item>
       </el-form>
     </div>
@@ -264,17 +260,20 @@ a {
 .login-box {
   display: flex;
   flex-direction: column;
-  margin: 20px 80px;
-  padding: 5% 5% 5% 5%;
+  margin: 40px 40px;
+  padding: 30px 5% 40px 5%;
   border-radius: 6px;
-  background: rgb(249 247 247 / 83%); 
+  background: rgb(249 247 247 / 70%); 
   box-shadow: 1px 1px 20px 10px rgb(80 80 80 / 21%);
   
 }
 .login-title {
   text-align: center;
-  margin: 10px auto 30px auto;
-  color: #303133;
+  margin: 0px auto 30px auto;
+  color: #434446;
+  letter-spacing: 0.1em;
+  font-weight:400;
+  font-size: 1.4em;
 }
 .button-group {
   display: flex;
