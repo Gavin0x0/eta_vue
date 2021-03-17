@@ -1,6 +1,6 @@
 <template>
   <div class="query-stu">
-    <h3>管理学生获奖</h3>
+    <h3 v-show="!ifShowDetail">管理学生获奖</h3>
     <div v-show="!ifShowDetail">
       <el-form :inline="true" class="demo-form-inline" size="mini">
         <el-form-item>
@@ -124,6 +124,7 @@
             :label="col.name"
             sortable="custom"
             :key="col.value"
+            show-overflow-tooltip
           >
           </el-table-column>
         </template>
@@ -160,20 +161,24 @@
         :page-sizes="[10, 20, 30, 40, 50, 100]"
         :page-size="pageSize"
         :layout="paginationLayout"
+        :small="ifSmall"
         :total="dataCount"
       >
       </el-pagination>
     </div>
     <StuDetail :detailData="detailData" :goback="goBack" v-show="ifShowDetail">
     </StuDetail>
-    <el-row type="flex" justify="center" v-if="roleId===1">
+    
+    <el-row type="flex" justify="center">
       <el-button
         @click="onSelect2Show"
+        v-if="roleId===1"
         v-show="ifShowDetail"
         style="margin:10px"
         type="primary"
         >设为展示项</el-button
       >
+      <UpdateAwardButton :id="selectId" v-show="ifShowDetail" v-if="roleId===1||roleId===3"></UpdateAwardButton>
     </el-row>
   </div>
 </template>
@@ -190,14 +195,18 @@ import {
   addAwardShow,
 } from "../api";
 import StuDetail from "../components/StuDetail.vue";
+import UpdateAwardButton from "../components/UpdateAwardButton.vue"
 import { mapGetters } from "vuex";
 export default {
   name: "QueryStu",
-  components: { StuDetail },
+  components: { StuDetail,UpdateAwardButton },
   computed: {},
   data() {
     return {
+      selectId:0,
+      ifSmall:false,
       paginationLayout: "prev, pager,next, jumper, ->, total, sizes",
+      ifShowUpdateDialog:false,
       ifShowDetail: false,
       // 数据列
       Columns: [
@@ -244,9 +253,20 @@ export default {
     this.initQueryList();
     this.onQuery();
     if (document.documentElement.clientWidth < 720) {
-      console.log("触发移动端布局");
-      this.paginationLayout = "prev, pager, next,  ->, total";
-      
+      //closeDebug console.log("触发移动端布局");
+      this.ifSmall = true
+      this.paginationLayout = "prev, pager,next, ->, total";
+      this.Columns=[
+        { name: "学号", value: "username", width: "120", ifShow: false },
+        { name: "姓名", value: "name", width: "80", ifShow: true },
+        { name: "班级", value: "className", width: "200", ifShow: false },
+        { name: "奖项等级", value: "rankName", width: "120", ifShow: false },
+        { name: "获奖名次", value: "awardPlace", width: "120", ifShow: false },
+        { name: "奖项名称", value: "awardName", width: "auto", ifShow: true },
+        { name: "获奖时间", value: "awardTime", width: "200", ifShow: false },
+        { name: "上传时间", value: "createAt", width: "200", ifShow: false },
+        { name: "审核时间", value: "reviewAt", width: "200", ifShow: false },
+      ]
     }
   },
   methods: {
@@ -254,9 +274,9 @@ export default {
     initQueryList() {
       initQueryStu()
         .then((res) => {
-          console.log("-----------初始化查询参数---------------");
+          //closeDebug console.log("-----------初始化查询参数---------------");
           let obj = JSON.parse(res.msg);
-          console.log(obj);
+          //closeDebug console.log(obj);
           this.gradeList = obj.grade;
           this.majorList = obj.major;
           this.rankList = obj.rank;
@@ -266,22 +286,14 @@ export default {
     //更新可供筛选的班级列表
     QueryClass() {
       let _this = this;
-      console.log(
-        "选中的筛选值",
-        "年级：",
-        this.form2Query.gradeId,
-        "专业",
-        this.form2Query.majorId,
-        "班级",
-        this.form2Query.classId
-      );
+      //closeDebug console.log("选中的筛选值","年级：",this.form2Query.gradeId,"专业",this.form2Query.majorId,"班级",this.form2Query.classId);
       let params = new URLSearchParams();
       params.append("gradeId", this.form2Query.gradeId);
       params.append("majorId", this.form2Query.majorId);
       getClassList(params)
         .then((res) => {
-          console.log("-----------获取班级列表---------------");
-          console.log(res);
+          //closeDebug console.log("-----------获取班级列表---------------");
+          //closeDebug console.log(res);
           _this.classList = res;
         })
         .catch((failResponse) => {});
@@ -293,25 +305,27 @@ export default {
     //处理每页显示数据量变化
     handleSizeChange(val) {
       this.pageSize = val;
-      console.log(`每页 ${val} 条`);
+      //closeDebug console.log(`每页 ${val} 条`);
       this.onQuery();
     },
     //处理跳页
     handleCurrentChange(val) {
       this.currentPage = val;
-      console.log(`当前页: ${val}`);
+      //closeDebug console.log(`当前页: ${val}`);
       this.onQuery();
     },
     //处理查看详情
     handleShow(index, row) {
-      console.log("点击查看", index, row);
+      //closeDebug console.log("点击查看", index, row);
       let params = new URLSearchParams();
       params.append("id", row.id);
+      //closeDebug console.log("选择了",row.id)
+      this.selectId = row.id
       getStuDetail(params)
         .then((res) => {
-          console.log("-----------获取个人奖项详情---------------");
+          //closeDebug console.log("-----------获取个人奖项详情---------------");
           let obj = JSON.parse(res.msg);
-          console.log("个人奖项详情", obj);
+          //closeDebug console.log("个人奖项详情", obj);
           this.detailData = obj;
         })
         .catch((failResponse) => {});
@@ -319,13 +333,13 @@ export default {
     },
     //处理删除奖项
     handleDel(index, row) {
-      console.log("点击删除", index, row);
+      //closeDebug console.log("点击删除", index, row);
       let params = new URLSearchParams();
       params.append("id", row.id);
       let _this = this;
       delStuAward(params)
         .then((res) => {
-          console.log("-----------删除奖项---------------");
+          //closeDebug console.log("-----------删除奖项---------------");
           if (res.code === 0) {
             _this.$message({
               message: res.msg,
@@ -347,7 +361,7 @@ export default {
     },
     //处理数据筛选
     onQuery() {
-      console.log("submit:", this.form2Query);
+      //closeDebug console.log("submit:", this.form2Query);
       //参数绑定「分页大小、页码以及筛选参数」
       let params = new URLSearchParams();
       params.append("limit", this.pageSize);
@@ -363,8 +377,8 @@ export default {
       params.append("field", this.orderField); //奖项名
       getStuAwardList(params)
         .then((res) => {
-          console.log("-----------获取筛选后的表格数据---------------");
-          console.log(res.data);
+          //closeDebug console.log("-----------获取筛选后的表格数据---------------");
+          //closeDebug console.log(res.data);
           this.tableData = res.data;
           this.dataCount = res.count;
         })
@@ -372,7 +386,7 @@ export default {
     },
     //处理排序后重新获取数据
     onSortChange(res) {
-      console.log("触发排序:", res);
+      //closeDebug console.log("触发排序:", res);
       if (res.order) {
         this.orderMode = res.order === "descending" ? "desc" : "asc";
         this.orderField = res.prop;
@@ -380,12 +394,12 @@ export default {
         this.orderMode = "";
         this.orderField = "";
       }
-      console.log(this.orderMode, this.orderField);
+      //closeDebug console.log(this.orderMode, this.orderField);
       this.onQuery();
     },
     //处理导出学生奖项表格文件
     onExportXLS() {
-      console.log("export XLS:", this.form2Query);
+      //closeDebug console.log("export XLS:", this.form2Query);
       //参数绑定「筛选参数」
       let params = new URLSearchParams();
       params.append("gradeId", this.form2Query.gradeId); //年级
@@ -397,8 +411,8 @@ export default {
       params.append("keyAwardName", this.form2Query.keyAwardName); //奖项名
       exportStuAwardXLS(params)
         .then((res) => {
-          console.log("-----------导出学生奖项表格文件---------------");
-          console.log(res);
+          //closeDebug console.log("-----------导出学生奖项表格文件---------------");
+          //closeDebug console.log(res);
           const blob = new Blob([res.data]);
           var downloadElement = document.createElement("a");
           var href = window.URL.createObjectURL(blob);
@@ -417,7 +431,7 @@ export default {
     },
     //处理导出学生奖项表格文件
     onExportZIP() {
-      console.log("export ZIP:", this.form2Query);
+      //closeDebug console.log("export ZIP:", this.form2Query);
       //参数绑定「筛选参数」
       let params = new URLSearchParams();
       params.append("gradeId", this.form2Query.gradeId); //年级
@@ -429,8 +443,8 @@ export default {
       params.append("keyAwardName", this.form2Query.keyAwardName); //奖项名
       exportStuAwardZIP(params)
         .then((res) => {
-          console.log("-----------导出学生奖项表格文件---------------");
-          console.log(res);
+          //closeDebug console.log("-----------导出学生奖项表格文件---------------");
+          //closeDebug console.log(res);
           const blob = new Blob([res.data]);
           var downloadElement = document.createElement("a");
           var href = window.URL.createObjectURL(blob);
@@ -452,15 +466,15 @@ export default {
       let _this = this
       let imageList = this.detailData.imagePaths;
       for (let it in imageList) {
-        console.log("imageurl", imageList[it]);
-        console.log("imagecontent", this.detailData.award);
+        //closeDebug console.log("imageurl", imageList[it]);
+        //closeDebug console.log("imagecontent", this.detailData.award);
         let params = new URLSearchParams();
         params.append("imageurl", imageList[it]);
         params.append("imagecontent", this.detailData.award);
         addAwardShow(params)
           .then((res) => {
-            console.log("-----------设置为首页展示项---------------");
-            console.log(res);
+            //closeDebug console.log("-----------设置为首页展示项---------------");
+            //closeDebug console.log(res);
             if (res.code === 0) {
                 _this.$message({
                   message: res.msg,
@@ -476,6 +490,7 @@ export default {
           .catch((failResponse) => {});
       }
     },
+    
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="mine">
-    <h3>获奖记录</h3>
+    <h3 v-show="!ifShowDetail">获奖记录</h3>
     <div v-show="!ifShowDetail">
       <div class="check-group">
         <span>显示列：</span>
@@ -29,6 +29,24 @@
             sortable="custom"
             :key="col.value"
           >
+            <template slot-scope="scope">
+              <i
+                class="el-icon-success"
+                style="color:#67C23A;margin-right:4px"
+                v-if="scope.row[col.value] == '已审核'"
+              ></i>
+              <i
+                class="el-icon-question"
+                style="color:#E6A23C;margin-right:4px"
+                v-if="scope.row[col.value] == '未审核'"
+              ></i>
+              <i
+                class="el-icon-warning"
+                style="color:#F56C6C;margin-right:4px"
+                v-if="scope.row[col.value] == '未通过'"
+              ></i>
+              <span>{{ scope.row[col.value] }}</span>
+            </template>
           </el-table-column>
         </template>
         <el-table-column label="操作" width="80" fixed="right" align="center">
@@ -47,6 +65,7 @@
         :page-sizes="[10, 20, 30, 40, 50, 100]"
         :page-size="pageSize"
         :layout="paginationLayout"
+        :small="ifSmall"
         :total="dataCount"
       >
       </el-pagination>
@@ -83,6 +102,7 @@ export default {
   },
   data() {
     return {
+      ifSmall: false,
       paginationLayout: "prev, pager,next, jumper, ->, total, sizes",
       ifShowDetail: false,
       detailData: {},
@@ -91,10 +111,10 @@ export default {
       tableData: [{}],
       // 数据列
       Columns: [
-        { name: "审核状态", value: "reviewName", width: "120", ifShow: true },
-        { name: "奖项", value: "awardName", width: "280", ifShow: true },
+        { name: "审核状态", value: "reviewName", width: "130", ifShow: true },
+        { name: "奖项", value: "awardName", width: "auto", ifShow: true },
         { name: "获奖等级", value: "rankName", width: "120", ifShow: true },
-        { name: "上传时间", value: "createAt", width: "auto", ifShow: true },
+        { name: "上传时间", value: "createAt", width: "280", ifShow: true },
       ],
       dataCount: 0, //总数据条数
     };
@@ -102,10 +122,11 @@ export default {
   mounted() {
     this.getTableData(10, 1);
     if (document.documentElement.clientWidth < 720) {
-      console.log("触发移动端布局");
+      //closeDebug console.log("触发移动端布局");
       this.paginationLayout = "prev, pager, next,  ->, total";
+      this.ifSmall = true;
       this.Columns = [
-        { name: "状态", value: "reviewName", width: "80", ifShow: true },
+        { name: "状态", value: "reviewName", width: "85", ifShow: true },
         { name: "奖项", value: "awardName", width: "auto", ifShow: true },
         { name: "等级", value: "rankName", width: "120", ifShow: false },
         { name: "上传时间", value: "createAt", width: "auto", ifShow: false },
@@ -121,8 +142,8 @@ export default {
       params.append("page", page);
       getMyAwardList(params)
         .then((res) => {
-          console.log("-----------获取表格数据---------------");
-          console.log(res.data);
+          //closeDebug console.log("-----------获取表格数据---------------");
+          //closeDebug console.log(res.data);
           (this.tableData = res.data), (this.dataCount = res.count);
         })
         .catch((failResponse) => {});
@@ -133,32 +154,32 @@ export default {
     },
     handleSizeChange(val) {
       this.pageSize = val;
-      console.log(`每页 ${val} 条`);
+      //closeDebug console.log(`每页 ${val} 条`);
       this.getTableData(val, 1);
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      //closeDebug console.log(`当前页: ${val}`);
       this.getTableData(this.pageSize, val);
     },
     handleShow(index, row) {
-      console.log("点击查看", index, row);
+      //closeDebug console.log("点击查看", index, row);
       let params = new URLSearchParams();
       params.append("id", row.id);
       if (this.roleId === 5) {
         getStuDetail(params)
           .then((res) => {
-            console.log("-----------获取学生奖项详情---------------");
+            //closeDebug console.log("-----------获取学生奖项详情---------------");
             let obj = JSON.parse(res.msg);
-            console.log("个人奖项详情", obj);
+            //closeDebug console.log("个人奖项详情", obj);
             this.detailData = obj;
           })
           .catch((failResponse) => {});
       } else {
         getTeaDetail(params)
           .then((res) => {
-            console.log("-----------获取教师奖项详情---------------");
+            //closeDebug console.log("-----------获取教师奖项详情---------------");
             let obj = JSON.parse(res.msg);
-            console.log("个人奖项详情", obj);
+            //closeDebug console.log("个人奖项详情", obj);
             this.detailData = obj;
           })
           .catch((failResponse) => {});
@@ -177,5 +198,8 @@ export default {
 <style>
 .pagination {
   margin-top: 20px;
+}
+.check-group {
+  margin-bottom: 10px;
 }
 </style>

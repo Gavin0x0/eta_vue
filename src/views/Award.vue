@@ -84,6 +84,7 @@
       :page-sizes="[10, 20, 30, 40, 50, 100]"
       :page-size="pageSize"
       :layout="paginationLayout"
+      :small="ifSmall"
       :total="dataCount"
     >
     </el-pagination>
@@ -143,6 +144,7 @@ export default {
   computed: {},
   data() {
     return {
+      ifSmall:false,
       paginationLayout: "prev, pager,next, jumper, ->, total, sizes",
       // 数据列
       Columns: [
@@ -174,9 +176,14 @@ export default {
   mounted() {
     this.onQuery();
     if (document.documentElement.clientWidth < 720) {
-      console.log("触发移动端布局");
-      this.paginationLayout = "prev, pager, next,  ->, total";
-      
+      //closeDebug console.log("触发移动端布局");
+      this.paginationLayout = "prev, pager,next, ->, total";
+      this.ifSmall = true
+      this.Columns=[
+        { name: "奖项ID", value: "id", width: "90", ifShow: false },
+        { name: "奖项类型", value: "typeName", width: "100", ifShow: false },
+        { name: "奖项名称", value: "awardName", width: "auto", ifShow: true },
+      ]
     }
   },
   methods: {
@@ -187,18 +194,18 @@ export default {
     //处理每页显示数据量变化
     handleSizeChange(val) {
       this.pageSize = val;
-      console.log(`每页 ${val} 条`);
+      //closeDebug console.log(`每页 ${val} 条`);
       this.onQuery();
     },
     //处理跳页
     handleCurrentChange(val) {
       this.currentPage = val;
-      console.log(`当前页: ${val}`);
+      //closeDebug console.log(`当前页: ${val}`);
       this.onQuery();
     },
     //处理编辑奖项
     handleUpdate(index, row) {
-      console.log("点击编辑", index, row);
+      //closeDebug console.log("点击编辑", index, row);
       this.selectAward = row;
       this.ifShowUpdateDialog = true;
     },
@@ -210,7 +217,7 @@ export default {
       params.append("newName", this.newAwardName);
       updateAwardName(params)
         .then((res) => {
-          console.log("-----------编辑奖项名---------------");
+          //closeDebug console.log("-----------编辑奖项名---------------");
           if (res.code === 0) {
             _this.$message({
               message: res.msg,
@@ -242,7 +249,7 @@ export default {
       params.append("type", this.addAwardForm.type);
       addAward(params)
         .then((res) => {
-          console.log("-----------添加奖项名---------------");
+          //closeDebug console.log("-----------添加奖项名---------------");
           if (res.code === 0) {
             _this.$message({
               message: res.msg,
@@ -262,13 +269,13 @@ export default {
     },
     //处理删除奖项
     handleDel(index, row) {
-      console.log("点击删除", index, row);
+      //closeDebug console.log("点击删除", index, row);
       let params = new URLSearchParams();
       params.append("ids[]", row.id);
       let _this = this;
       delAward(params)
         .then((res) => {
-          console.log("-----------删除奖项---------------");
+          //closeDebug console.log("-----------删除奖项---------------");
           if (res.code === 0) {
             _this.$message({
               message: res.msg,
@@ -286,7 +293,7 @@ export default {
     },
     //处理数据筛选
     onQuery() {
-      console.log("submit:", this.form2Query);
+      //closeDebug console.log("submit:", this.form2Query);
       //参数绑定「分页大小、页码以及筛选参数」
       let params = new URLSearchParams();
       params.append("limit", this.pageSize);
@@ -296,8 +303,8 @@ export default {
       params.append("order", this.orderMode);
       getAllAwardList(params)
         .then((res) => {
-          console.log("-----------获取筛选后的表格数据---------------");
-          console.log(res.data);
+          //closeDebug console.log("-----------获取筛选后的表格数据---------------");
+          //closeDebug console.log(res.data);
           this.tableData = res.data;
           this.dataCount = res.count;
         })
@@ -305,7 +312,7 @@ export default {
     },
     //处理排序后重新获取数据
     onSortChange(res) {
-      console.log("触发排序:", res);
+      //closeDebug console.log("触发排序:", res);
       if (res.order) {
         this.orderMode = res.order === "descending" ? "desc" : "asc";
         this.orderField = res.prop;
@@ -313,7 +320,7 @@ export default {
         this.orderMode = "desc";
         this.orderField = "";
       }
-      console.log(this.orderMode, this.orderField);
+      //closeDebug console.log(this.orderMode, this.orderField);
       this.onQuery();
     },
   },

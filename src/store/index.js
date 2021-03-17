@@ -25,7 +25,7 @@ const store =  new Vuex.Store({
       state.teaItemNum = info.teaItemNum
       state.totalItemNum = info.totalItemNum
       state.roleId = info.roleId
-      console.log('当前角色设为：'+info.roleId)
+      //closeDebug console.log('当前角色设为：'+info.roleId)
       state.name = info.name
       state.username = info.username
       state.role = info.role
@@ -37,7 +37,7 @@ const store =  new Vuex.Store({
     },
     //设置登陆状态「未启用」
     setLoginState: (state, LoginState) => {
-      console.log('当前登陆状态设为：',LoginState)
+      //closeDebug console.log('当前登陆状态设为：',LoginState)
       state.ifLogin = LoginState
     },
   },

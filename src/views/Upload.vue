@@ -41,7 +41,8 @@
         :current-page="currentPage"
         :page-sizes="[10, 20, 30, 40, 50, 100]"
         :page-size="pageSize"
-        layout="prev, pager,next,  ->, total"
+        :layout="paginationLayout"
+        :small="ifSmall"
         :total="dataCount"
         
       >
@@ -69,6 +70,8 @@ export default {
   components: { UploadForm },
   data() {
     return {
+      ifSmall:false,
+      paginationLayout:"prev, pager,next,  ->, total",
       ifSelected: false,
       awardSelected: "",
       awardIdSelected: 0,
@@ -81,6 +84,10 @@ export default {
   },
   mounted() {
     this.getTableData();
+    if (document.documentElement.clientWidth < 720) {
+      //closeDebug console.log("触发移动端布局");
+      this.ifSmall = true
+    }
   },
   methods: {
     //调用接口取数据
@@ -92,8 +99,8 @@ export default {
       params.append("key", this.search);
       getAwardList(params)
         .then((res) => {
-          console.log("-----------获取表格数据---------------");
-          console.log(res.data);
+          //closeDebug console.log("-----------获取表格数据---------------");
+          //closeDebug console.log(res.data);
           this.tableData = res.data;
           this.dataCount = res.count;
         })
@@ -115,17 +122,17 @@ export default {
     handleSizeChange(val) {
       this.currentPage = 1;
       this.pageSize = val;
-      console.log(`每页 ${val} 条`);
+      //closeDebug console.log(`每页 ${val} 条`);
       this.getTableData();
     },
     handleCurrentChange(val) {
       this.currentPage = val;
-      console.log(`当前页: ${val}`);
+      //closeDebug console.log(`当前页: ${val}`);
       this.getTableData();
     },
     //处理选中，隐藏奖项列表，显示提交表单
     handleEdit(index, row) {
-      console.log("选中了", index, row);
+      //closeDebug console.log("选中了", index, row);
       this.awardSelected = row.awardName;
       this.awardIdSelected = row.id;
       this.ifSelected = true;

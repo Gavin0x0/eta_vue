@@ -100,8 +100,8 @@ export default {
           params.append("new-pass-v", this.uploadForm.checkPass);
           updatePass(params)
             .then((res) => {
-              console.log("-----------提交密码修改---------------");
-              console.log(res);
+              //closeDebug console.log("-----------提交密码修改---------------");
+              //closeDebug console.log(res);
               if (res.code === 0) {
                 _this.$message({
                   message: res.msg,
@@ -116,7 +116,7 @@ export default {
             })
             .catch((failResponse) => {});
         } else {
-          console.log("error submit!!");
+          //closeDebug console.log("error submit!!");
           return false;
         }
       });

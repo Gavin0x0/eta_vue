@@ -120,9 +120,9 @@ export default {
     initQueryList() {
       initManageStu()
         .then((res) => {
-          console.log("-----------初始化查询参数---------------");
+          //closeDebug console.log("-----------初始化查询参数---------------");
           let obj = JSON.parse(res.msg);
-          console.log(obj);
+          //closeDebug console.log(obj);
           this.gradeList = obj.grade;
           this.majorList = obj.major;
         })
@@ -131,20 +131,14 @@ export default {
     //更新可供筛选的班级列表
     QueryClass() {
       let _this = this;
-      console.log(
-        "选中的筛选值",
-        "年级：",
-        this.form2Query.gradeId,
-        "专业",
-        this.form2Query.majorId
-      );
+      //closeDebug console.log("选中的筛选值","年级：",this.form2Query.gradeId,"专业",this.form2Query.majorId);
       let params = new URLSearchParams();
       params.append("gradeId", this.form2Query.gradeId);
       params.append("majorId", this.form2Query.majorId);
       getClassList(params)
         .then((res) => {
-          console.log("-----------获取班级列表---------------");
-          console.log(res);
+          //closeDebug console.log("-----------获取班级列表---------------");
+          //closeDebug console.log(res);
           _this.classList = res;
         })
         .catch((failResponse) => {});
@@ -154,7 +148,7 @@ export default {
       for(let it in this.classList){
         if(e==this.classList[it].id){
           this.currentClass = this.classList[it].className
-          console.log("selectClass",this.classList[it].className)
+          //closeDebug console.log("selectClass",this.classList[it].className)
         }
       }
     },
@@ -162,8 +156,8 @@ export default {
     handleDownload() {
       getStuTemplate()
         .then((res) => {
-          console.log("-----------下载学生模板---------------");
-          console.log(res);
+          //closeDebug console.log("-----------下载学生模板---------------");
+          //closeDebug console.log(res);
           const blob = new Blob([res.data]);
           var downloadElement = document.createElement("a");
           var href = window.URL.createObjectURL(blob);
@@ -179,7 +173,7 @@ export default {
     // 文件上传
     uploadFile(params) {
       let _this = this;
-      console.log("uploadFile", params);
+      //closeDebug console.log("uploadFile", params);
       const _file = params.file;
       // 通过 FormData 对象上传文件
       var formData = new FormData();
@@ -187,8 +181,8 @@ export default {
       formData.append("class", this.form2Query.classId);
       uploadStuTemplate(formData)
         .then((res) => {
-          console.log("-----------模板上传---------------");
-          console.log("服务器返回值：", res);
+          //closeDebug console.log("-----------模板上传---------------");
+          //closeDebug console.log("服务器返回值：", res);
           if (res.code === 0) {
             _this.$notify({
               title: this.currentClass,

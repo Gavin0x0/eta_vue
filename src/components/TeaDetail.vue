@@ -1,10 +1,10 @@
 <template>
   <div>
-    <el-button @click="goback()">返回</el-button>
+    <el-page-header @back="goback()" content="奖项详情页"> </el-page-header>
     <el-carousel :interval="4000" height="300px" type="card">
       <el-carousel-item v-for="item in detailData.imagePaths" :key="item">
         <el-image
-          style="width: auto; height: 300px"
+          class="image-row"
           :src="item"
           fit="scale-down"
           :preview-src-list="detailData.imagePaths"
@@ -13,87 +13,60 @@
         ></el-image>
       </el-carousel-item>
     </el-carousel>
-    <template v-for="item in detailList">
-      <el-row
-        type="flex"
-        class="row-container"
-        justify="center"
-        :key="item.value"
-      >
-        <el-col :xs="8" :sm="4"
-          ><div class="row-title">{{ item.title }}</div></el-col
-        >
-        <el-col :xs="16" :sm="8"
-          ><div class="row-content">{{ detailData[item.value] }}</div></el-col
-        >
+    <el-card class="box-card">
+      <el-divider content-position="left"><span class="div-font">教师信息</span></el-divider>
+      <el-row :gutter="20">
+        <el-col class="detail-info" :span="12" :xs="24">教职工号：{{detailData.username}}</el-col>
+        <el-col class="detail-info" :span="12" :xs="24">姓名：{{detailData.name}}</el-col>
+        <el-col class="detail-info" :span="12" :xs="24">性别：{{detailData.gender}}</el-col>
       </el-row>
-    </template>
-
+      <el-divider content-position="left"><span class="div-font">奖项信息</span></el-divider>
+      <el-row :gutter="20">
+        <el-col class="detail-info" :span="12" :xs="24">奖项名称：{{detailData.award}}</el-col>
+        <el-col class="detail-info" :span="12" :xs="24">奖项级别：{{detailData.rank}}</el-col>
+        <el-col class="detail-info" :span="12" :xs="24">奖项名次：{{detailData.place}}</el-col>
+        <el-col class="detail-info" :span="12" :xs="24">获奖日期：{{detailData.time}}</el-col>
+      </el-row>
+      <el-divider content-position="left"><span class="div-font">审核信息</span></el-divider>
+      <el-row :gutter="20">
+        <el-col class="detail-info" :span="12" :xs="24">上传时间：{{detailData.createAt}}</el-col>
+        <el-col class="detail-info" :span="12" :xs="24">审核状态：{{detailData.review}}</el-col>
+        <el-col class="detail-info" :span="12" :xs="24">审核时间：{{detailData.reviewAt}}</el-col>
+      </el-row>
+    </el-card>
   </div>
 </template>
 
 <script>
-import { getImage } from "../api";
-/**
- * <el-image
-      
-      :src="item"
-      fit="scale-down">
-      <div slot="error" class="image-slot">
-        <i class="el-icon-picture-outline"></i>
-      </div></el-image>
- */
 export default {
   name: "TeaDetail",
   props: {
     detailData: {},
     goback: { type: Function },
   },
-  data() {
-    return {
-      detailList: [
-        { title: "教职工号", value: "username" },
-        { title: "姓名", value: "name" },
-        { title: "性别", value: "gender" },
-        { title: "奖项名称", value: "award" },
-        { title: "奖项级别", value: "rank" },
-        { title: "获奖名次", value: "place" },
-        { title: "获奖日期", value: "time" },
-        { title: "上传时间", value: "createAt" },
-        { title: "审核状态", value: "review" },
-        { title: "审核时间", value: "reviewAt" },
-      ],
-    };
-  },
-
-  methods: {
-    randerImage(path) {
-      console.log("ImgPath", path);
-      getImage(path)
-        .then((res) => {
-          console.log(res);
-          _this.$refs.code.setAttribute("src", window.URL.createObjectURL(res));
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-  },
 };
 </script>
 <style>
+.image-row {
+  width: auto;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+}
 .row-container {
-  min-height: 36px;
+  min-height: 30px;
   margin-top: 10px;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid rgba(156, 156, 156, 0.849);
   margin-left: 10%;
   margin-right: 10%;
 }
 .row-title {
   text-align: center;
   font-weight: 500;
+  font-size: 0.9rem;
 }
 .row-content {
   text-align: center;
+  font-size: 0.9rem;
 }
 </style>

@@ -29,13 +29,13 @@ axios.interceptors.response.use(
     if (response.status === 200) {
       return Promise.resolve(response);
     } else {
-      console.log("response.status !== 200");
+      //closeDebug console.log("response.status !== 200");
       return Promise.reject(response);
     }
   },
   // 服务器状态码不是2开头的的情况
   (error) => {
-    console.log("请求error：",error)
+    //closeDebug console.log("请求error：",error)
     if (error.response.status) {
       switch (error.response.status) {
         // 401: 未登录
@@ -48,7 +48,7 @@ axios.interceptors.response.use(
           });
           break;
         case 403:
-          // console.log('管理员权限已修改请重新登录')
+          // //closeDebug console.log('管理员权限已修改请重新登录')
           // 跳转登录页面，并将要浏览的页面fullPath传过去，登录成功后跳转需要访问的页面
           setTimeout(() => {
             router.replace({
@@ -62,16 +62,16 @@ axios.interceptors.response.use(
 
         // 404请求不存在
         case 404:
-          // console.log('请求页面飞到火星去了')
+          // //closeDebug console.log('请求页面飞到火星去了')
           break;
         // 404请求不存在
         case 500:
-          console.log("服务器处理出错");
+          //closeDebug console.log("服务器处理出错");
           break;
       }
       return Promise.reject(error.response);
     }
-    console.log("response error");
+    //closeDebug console.log("response error");
   }
 );
 

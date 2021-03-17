@@ -26,7 +26,7 @@
           </template>
         </el-select>
       </el-form-item>
-      <el-form-item label="获奖时间" required prop="awardTime">
+      <el-form-item label="获奖时间" prop="awardTime">
         <el-date-picker
           type="date"
           placeholder="选择日期"
@@ -39,7 +39,7 @@
       <el-form-item label="获奖名次" prop="awardPlace">
         <el-input
           v-model="FormData.awardPlace"
-          placeholder="请输入获奖名次"
+          placeholder="例如：一等奖、科技进步奖，无等级可填奖项名"
         ></el-input>
       </el-form-item>
       <el-dialog :visible.sync="dialogVisible" width="90%">
@@ -138,7 +138,7 @@ export default {
       getRankList()
         .then((res) => {
           let obj = JSON.parse(res.msg);
-          console.log("Ranklist初始化", obj);
+          //closeDebug console.log("Ranklist初始化", obj);
           this.rankList = obj;
         })
         .catch((failResponse) => {});
@@ -146,7 +146,7 @@ export default {
     //处理表单提交事件
     submitForm(formName) {
       let _this = this;
-      console.log();
+      //closeDebug console.log();
       this.$refs[formName].validate((valid) => {
         if (valid) {
           let data2upload = new FormData();
@@ -161,17 +161,17 @@ export default {
           for (let i = 0; i < filesList.length; i++) {
             data2upload.append("file", filesList[i].raw, filesList[i].raw.name);
           }
-          //   console.log("awardId", this.awardId);
-          //   console.log("awardName", this.awardName);
-          //   console.log("rankId", this.FormData.rankId);
-          //   console.log("awardTime", this.FormData.awardTime);
-          //   console.log("awardPlace", this.FormData.awardPlace);
-          //   console.log("file", filesList);
+          //   //closeDebug console.log("awardId", this.awardId);
+          //   //closeDebug console.log("awardName", this.awardName);
+          //   //closeDebug console.log("rankId", this.FormData.rankId);
+          //   //closeDebug console.log("awardTime", this.FormData.awardTime);
+          //   //closeDebug console.log("awardPlace", this.FormData.awardPlace);
+          //   //closeDebug console.log("file", filesList);
 
           uploadAward(data2upload)
             .then((res) => {
-              console.log("-----------表单提交---------------");
-              console.log("服务器返回值：", res);
+              //closeDebug console.log("-----------表单提交---------------");
+              //closeDebug console.log("服务器返回值：", res);
               if (res.code === 0) {
                 _this.$message({
                   message: res.msg,
@@ -203,22 +203,22 @@ export default {
     },
     //处理已上传图片与表单内容的同步
     handleChange(file, fileList) {
-      console.log("添加图片后", file, fileList);
+      //closeDebug console.log("添加图片后", file, fileList);
       this.FormData.awardPicList = fileList;
     },
     //处理已上传的图片的删除
     handleRemove(file, fileList) {
-      console.log("删除图片后", file, fileList);
+      //closeDebug console.log("删除图片后", file, fileList);
     },
     //处理已上传的图片的点击预览
     handlePreview(file) {
-      console.log("点击预览了", file);
+      //closeDebug console.log("点击预览了", file);
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
     },
     //处理上传图片超过限制
     handleExceed(files, fileList) {
-      console.log("数量超出限制时", files, fileList);
+      //closeDebug console.log("数量超出限制时", files, fileList);
       this.$message({
         message: "已达到图片数量上限",
         type: "error",
