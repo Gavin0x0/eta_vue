@@ -11,10 +11,10 @@ if (process.env.NODE_ENV === "production") {
   /*第二层if，根据.env文件中的VUE_APP_FLAG判断是生产环境还是测试环境*/
   if (process.env.VUE_APP_FLAG === "pro") {
     //production 生产环境
-    axios.defaults.baseURL = "http://47.98.222.103:88";
+    axios.defaults.baseURL = "http://eta.cxxy.seu.edu.cn/api";
   } else {
     //test 测试环境
-    axios.defaults.baseURL = "http://47.98.222.103:88";
+    axios.defaults.baseURL = "http://eta.cxxy.seu.edu.cn/api";
   }
 } else {
   //dev 开发环境
