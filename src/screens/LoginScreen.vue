@@ -181,11 +181,7 @@ export default {
         }
       });
     },
-    //获取管理员账号
-    getAdmin() {
-      this.loginForm.username = "999999999";
-      this.loginForm.password = "999999999";
-    },
+    
     //获取随机数作来生成验证码
     getCaptchaKey() {
       let captchaKey = Math.random();
