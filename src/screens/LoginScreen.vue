@@ -181,7 +181,6 @@ export default {
         }
       });
     },
-    
     //获取随机数作来生成验证码
     getCaptchaKey() {
       let captchaKey = Math.random();

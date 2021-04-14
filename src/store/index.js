@@ -33,6 +33,10 @@ const store =  new Vuex.Store({
         state.grade = info.grade
         state.major = info.major
         state.l_class = info.l_class
+      }else{
+        state.grade = null
+        state.major = null
+        state.l_class = null
       }
     },
     //设置登陆状态「未启用」
