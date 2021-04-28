@@ -1,6 +1,6 @@
 /* eslint-disable */
 import axios from "axios";
-axios.defaults.timeout = 5000; //超时时间设置
+axios.defaults.timeout = 60000; //超时时间设置
 axios.defaults.withCredentials = true; //true允许跨域
 
 //Content-Type 响应头

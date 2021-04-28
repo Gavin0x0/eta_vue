@@ -15,7 +15,7 @@
         <el-select
           v-model="FormData.rankId"
           placeholder="请选择奖项等级"
-          style="display: block;"
+          style="display: block"
         >
           <template v-for="rankEach in rankList">
             <el-option
@@ -31,7 +31,7 @@
           type="date"
           placeholder="选择日期"
           v-model="FormData.awardTime"
-          style="width: 100%;"
+          style="width: 100%"
           format="yyyy-MM-dd"
           value-format="yyyy-MM-dd"
         ></el-date-picker>
@@ -63,11 +63,11 @@
         >
           <el-button size="small">上传图片</el-button>
           <div slot="tip" class="el-upload__tip">
-            只能上传 jpg/png 格式文件，且不超过10MB，最多上传5张
+            只能上传 jpg/png 格式文件，且总大小不超过10MB，最多上传5张
           </div>
         </el-upload>
       </el-form-item>
-      <el-form-item style="margin-top:40px" size="medium">
+      <el-form-item style="margin-top: 40px" size="medium">
         <el-button type="primary" @click="submitForm('FormData')"
           >立即提交</el-button
         >
@@ -146,6 +146,13 @@ export default {
     //处理表单提交事件
     submitForm(formName) {
       let _this = this;
+      _this.$message({
+        dangerouslyUseHTMLString: true,
+        duration:0,
+        type: 'success',
+        message: '<strong>上传中,请勿关闭页面</strong><i class="el-icon-loading"></i>',
+      });
+      
       //closeDebug console.log();
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -173,6 +180,7 @@ export default {
               //closeDebug console.log("-----------表单提交---------------");
               //closeDebug console.log("服务器返回值：", res);
               if (res.code === 0) {
+                _this.$message.closeAll()
                 _this.$message({
                   message: res.msg,
                   type: "success",
@@ -180,14 +188,30 @@ export default {
                 _this.cancelUpload("FormData");
                 _this.goback();
               } else {
+                _this.$message.closeAll()
                 _this.$message({
                   message: res.msg,
                   type: "error",
                 });
               }
             })
-            .catch((failResponse) => {});
+            .catch((failResponse) => {
+              _this.$message.closeAll()
+              console.log(failResponse);
+              if (failResponse.status == 500) {
+                _this.$message({
+                  message: "上传失败，大小超出限制",
+                  type: "error",
+                });
+              } else {
+                _this.$message({
+                  message: "上传失败，请检查网络，或压缩图片",
+                  type: "error",
+                });
+              }
+            });
         } else {
+          _this.$message.closeAll()
           this.$message({
             message: "填写的信息有误",
             type: "error",
